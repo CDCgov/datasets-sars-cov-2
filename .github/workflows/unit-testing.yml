@@ -4,7 +4,6 @@
 name: unit-testing
 on: [push]
 
-
 jobs:
   build:
     runs-on: ubuntu-18.04
@@ -40,6 +39,8 @@ jobs:
           bats t/00_env.bats
       - name: unit testing with ${{ matrix.DATASET }}
         run:  |
+          export NCBI_API_KEY=${{ secrets.NCBI_API_KEY }}
+          if [[ -z "$NCBI_API_KEY" ]]; then echo "NCBI_API_KEY not found in github secrets!"; fi;
           export DATASET=$(realpath ${{ matrix.DATASET }})
           echo "Dataset is $DATASET"
           bats t/*
