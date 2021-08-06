@@ -8,6 +8,13 @@ run mkdir -pv $BINDIR
 @test "Download edirect" {
   if [[ -e "$BINDIR/edirect/esearch" ]]; then
     skip "Esearch already exists"
+  else
+    echo "# Found that edirect was not already installed by this script" >&3
+  fi
+
+  esearchPath=$(which esearch 2>/dev/null || true)
+  if [[ "$esearchPath" != "" ]]; then
+    skip "Edirect was already installed elsewhere: $esearchPath"
   fi
 
   echo "# Downloading with perl -MNet::FTP" >&3
