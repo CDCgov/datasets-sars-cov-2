@@ -8,7 +8,7 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-18.04
-    name: "Unit testing with ${{ matrix.DATASET }}"
+    name: ${{ matrix.DATASET }}
     strategy:
       matrix:
         DATASET:
