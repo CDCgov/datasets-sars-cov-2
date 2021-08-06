@@ -14,7 +14,7 @@ run mkdir -pv $BINDIR
   perl -MNet::FTP -e \
       '$ftp = new Net::FTP("ftp.ncbi.nlm.nih.gov", Passive => 1);
        $ftp->login; $ftp->binary;
-       $ftp->get("/entrez/entrezdirect/edirect.tar.gz");' | sed 's|^|# |'
+       $ftp->get("/entrez/entrezdirect/edirect.tar.gz");' 
   echo "# Extracting to $BINDIR" >&3
   tar zxf edirect.tar.gz
   mv -n edirect $BINDIR
@@ -34,6 +34,7 @@ run mkdir -pv $BINDIR
   tar zxvf sratoolkit.current-ubuntu64.tar.gz
   mv sratoolkit.2.11.0-ubuntu64 $BINDIR
   rm -f sratoolkit.current-ubuntu64.tar.gz
+  vdb-config --restore-defaults
 
   fastq-dump -h
 }

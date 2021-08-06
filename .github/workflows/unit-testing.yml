@@ -23,5 +23,7 @@ jobs:
       - name: env
         run:  |
           tree -d
+      - name: unit testing - just env
+        run:  bats t/00_env.bats
       - name: unit testing
         run:  bats t/*
