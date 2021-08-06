@@ -43,7 +43,7 @@ run mkdir -pv $BINDIR
 
   fastqDumpPath=$(which fastq-dump 2>/dev/null || true)
   if [[ "$fastqDumpPath" != "" ]]; then
-    skip "SRA Toolkit was already installed elsewhere: $$fastqDumpPath"
+    skip "SRA Toolkit was already installed elsewhere: $fastqDumpPath"
   fi
 
   echo "# Downloading with wget" >&3
