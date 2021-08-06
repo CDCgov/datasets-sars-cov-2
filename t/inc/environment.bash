@@ -6,8 +6,9 @@ NUMCPUS=2
 THISDIR=$BATS_TEST_DIRNAME
 BINDIR="$THISDIR/../bin"
 
-export PATH=$PATH:$BINDIR
-export PATH=$PATH:$BINDIR/sratoolkit.2.11.0-ubuntu64/bin
-export PATH=$PATH:$BINDIR/edirect
+export PATH=$BINDIR:$PATH
+export PATH=$BINDIR/sratoolkit.2.11.0-ubuntu64/bin:$PATH
+export PATH=$BINDIR/edirect:$PATH
+export PATH=$THISDIR/../scripts:$PATH
 run mkdir -pv $BINDIR
 
