@@ -21,6 +21,17 @@ run mkdir -pv $BINDIR
   rm -f edirect.tar.gz
 
   esearch -h
+
+  echo "# Downloading xtract" >&3
+  nquire -dwn ftp.ncbi.nlm.nih.gov entrez/entrezdirect xtract.Linux.gz
+  gunzip -f xtract.Linux.gz
+  chmod +x xtract.Linux
+  mv -nv xtract.Linux $BINDIR/edirect/
+  echo "# Downloading transmute" >&3
+  nquire -dwn ftp.ncbi.nlm.nih.gov entrez/entrezdirect transmute.Linux.gz
+  gunzip -f transmute.Linux.gz
+  chmod +x transmute.Linux
+  mv -nv transmute.Linux $BINDIR/edirect/
 }
 
 @test "Download sratoolkit" {

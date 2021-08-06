@@ -11,10 +11,12 @@ load "inc/environment"
 }
 
 @test "download datasets" {
-  for dataset in $BATS_TEST_DIRNAME/../datasets/*.tsv; do
-    echo "# Downloading $dataset" >&3
-    name=$(basename $dataset)
-    GenFSGopher.pl -o $BATS_SUITE_TMPDIR/$name.out --numcpus $NUMCPUS $dataset 2>&1
-  done
+  if [[ -z "$DATASET" ]]; then
+    skip "No dataset was found in the environment variable DATASET"
+  fi
+
+  echo "# Downloading $DATASET" >&3
+  name=$(basename $DATASET)
+  GenFSGopher.pl -o $BATS_SUITE_TMPDIR/$name.out --numcpus $NUMCPUS $DATASET 2>&3 1>&3
 }
 

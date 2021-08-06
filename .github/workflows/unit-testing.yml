@@ -8,6 +8,15 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-18.04
+    name: "Unit testing with ${{ matrix.DATASET }}"
+    strategy:
+      matrix:
+        DATASET:
+          - datasets/Dataset4.tsv
+          - datasets/Dataset5.tsv
+          - datasets/sars-cov-2-coronahit-rapid.tsv
+          - datasets/sars-cov-2-coronahit-routine.tsv
+          - datasets/sarscov2-SNF-A.tsv
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -26,6 +35,10 @@ jobs:
         run:  |
           tree -d
       - name: unit testing - just env
-        run:  bats t/00_env.bats
-      - name: unit testing
-        run:  bats t/*
+        run:  |
+          bats t/00_env.bats
+      - name: unit testing with ${{ matrix.DATASET }}
+        run:  |
+          export DATASET=${{ matrix.DATASET }}
+          echo "Dataset is $DATASET"
+          bats t/*
