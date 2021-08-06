@@ -17,3 +17,11 @@ jobs:
           cd bats-core
           sudo ./install.sh /usr/local
           cd -
+          # test the command
+          which bats
+          bats -h
+      - name: env
+        run:  |
+          tree -d
+      - name: unit testing
+        run:  bats t/*
