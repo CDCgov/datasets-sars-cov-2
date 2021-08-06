@@ -12,8 +12,8 @@ jobs:
     strategy:
       matrix:
         DATASET:
-          - datasets/Dataset4.tsv
-          - datasets/Dataset5.tsv
+          #- datasets/Dataset4.tsv
+          #- datasets/Dataset5.tsv
           - datasets/sars-cov-2-coronahit-rapid.tsv
           - datasets/sars-cov-2-coronahit-routine.tsv
           - datasets/sarscov2-SNF-A.tsv
@@ -40,7 +40,6 @@ jobs:
           bats t/00_env.bats
       - name: unit testing with ${{ matrix.DATASET }}
         run:  |
-          ls datasets || true
           export DATASET=$(realpath ${{ matrix.DATASET }})
           echo "Dataset is $DATASET"
           bats t/*
