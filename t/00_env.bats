@@ -25,7 +25,14 @@ run mkdir -pv $BINDIR
 
 @test "Download sratoolkit" {
   if [[ -e "$BINDIR/sratoolkit.2.11.0-ubuntu64/bin/fastq-dump" ]]; then
-    skip "Sra Toolkit already exists"
+    skip "SRA Toolkit was already downloaded"
+  else
+    echo "# Found that the SRA Toolkit was not already downloaded by this script" >&3
+  fi
+
+  fastqDumpPath=$(which fastq-dump 2>/dev/null || true)
+  if [[ "$fastqDumpPath" != "" ]]; then
+    skip "SRA Toolkit was already installed elsewhere: $$fastqDumpPath"
   fi
 
   echo "# Downloading with wget" >&3
