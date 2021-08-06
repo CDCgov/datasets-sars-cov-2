@@ -33,12 +33,14 @@ jobs:
           bats -h
       - name: env
         run:  |
+          pwd
           tree -d
       - name: unit testing - just env
         run:  |
           bats t/00_env.bats
       - name: unit testing with ${{ matrix.DATASET }}
         run:  |
+          ls datasets || true
           export DATASET=$(realpath ${{ matrix.DATASET }})
           echo "Dataset is $DATASET"
           bats t/*
