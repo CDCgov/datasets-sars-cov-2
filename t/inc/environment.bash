@@ -2,7 +2,7 @@
 
 # https://github.com/bats-core/bats-core
 
-NUMCPUS=2
+NUMCPUS=1
 THISDIR=$BATS_TEST_DIRNAME
 BINDIR="$THISDIR/../bin"
 
