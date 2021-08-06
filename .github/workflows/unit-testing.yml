@@ -12,7 +12,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: apt-get
-        run:  sudo apt-get install ca-certificates sratoolkit
+        run:  sudo apt-get install ca-certificates sra-toolkit
       - name: install bats-core
         run:  |
           git clone https://github.com/bats-core/bats-core.git
