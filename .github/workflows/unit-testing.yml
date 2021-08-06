@@ -42,7 +42,7 @@ jobs:
           export NCBI_API_KEY=${{ secrets.NCBI_API_KEY }}
           if [[ -z "$NCBI_API_KEY" ]]; then echo "NCBI_API_KEY not found in github secrets!"; fi;
           # Get the header and just two samples for the abbreviated test
-          grep -B 999 -A 2 biosample_acc ${{ matrix.DATASET }}) > ${{ matrix.DATASET }}).short
+          grep -B 999 -A 2 biosample_acc ${{ matrix.DATASET }} > ${{ matrix.DATASET }}.short
           export DATASET=$(realpath ${{ matrix.DATASET }}).short
           echo "Abbreviated dataset: $DATASET"
           bats t/*
@@ -50,7 +50,7 @@ jobs:
         run:  |
           export NCBI_API_KEY=${{ secrets.NCBI_API_KEY }}
           if [[ -z "$NCBI_API_KEY" ]]; then echo "NCBI_API_KEY not found in github secrets!"; fi;
-          echo "Full dataset: ${{ matrix.DATASET }})"
+          echo "Full dataset: ${{ matrix.DATASET }}"
           export DATASET=$(realpath ${{ matrix.DATASET }})
           bats t/*
 
