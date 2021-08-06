@@ -39,6 +39,6 @@ jobs:
           bats t/00_env.bats
       - name: unit testing with ${{ matrix.DATASET }}
         run:  |
-          export DATASET=${{ matrix.DATASET }}
+          export DATASET=$(realpath ${{ matrix.DATASET }})
           echo "Dataset is $DATASET"
           bats t/*
