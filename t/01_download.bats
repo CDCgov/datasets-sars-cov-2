@@ -24,7 +24,7 @@ load "inc/environment"
       run file $file
       run ls -lh $file
       run sha256sum $file
-    done | sed 's|^|# ' >&3
+    done | sed 's|^|# |' >&3
     
     # invoke an exit code > 1 with 'false'
     false
