@@ -19,11 +19,11 @@ load "inc/environment"
   name=$(basename $DATASET)
   run GenFSGopher.pl -o $BATS_SUITE_TMPDIR/$name.out --numcpus $NUMCPUS $DATASET 2>&3 1>&3
   if [[ "$status" -gt 1 ]]; then
-    echo "# ERROR on GenFSGopher! Running sha256sums in case it helps correct the spreadsheet"
+    echo "# ERROR on GenFSGopher! Running sha256sums in case it helps correct the spreadsheet" >&3
     for file in $BATS_SUITE_TMPDIR/$name.out/*; do
-      run file $file
-      run ls -lh $file
-      run sha256sum $file
+      file $file
+      ls -lh $file
+      sha256sum $file
     done | sed 's|^|# |' >&3
     
     # invoke an exit code > 1 with 'false'
