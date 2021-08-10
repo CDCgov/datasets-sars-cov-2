@@ -29,5 +29,8 @@ load "inc/environment"
     # invoke an exit code > 1 with 'false'
     false
   fi
+  echo "$0: DEBUG !!!!!!!!!!!"
+  find $BATS_SUITE_TMPDIR -type f -exec sha256sum {} \;
+  rm -rf $BATS_SUITE_TMPDIR
 }
 
