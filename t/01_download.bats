@@ -18,7 +18,7 @@ load "inc/environment"
   echo "# Downloading $DATASET" >&3
   name=$(basename $DATASET)
   run GenFSGopher.pl -o $BATS_SUITE_TMPDIR/$name.out --numcpus $NUMCPUS $DATASET 2>&3 1>&3
-  if [[ "$status" -gt 1 ]]; then
+  if [[ "$status" -gt 0 ]]; then
     echo "# ERROR on GenFSGopher! Running sha256sums in case it helps correct the spreadsheet" >&3
     for file in $BATS_SUITE_TMPDIR/$name.out/*; do
       file $file
@@ -30,7 +30,7 @@ load "inc/environment"
     false
   fi
   echo "$0: DEBUG !!!!!!!!!!!"
-  find $BATS_SUITE_TMPDIR -type f -exec sha256sum {} \;
+  find $BATS_SUITE_TMPDIR -type f -exec sha256sum {} \; | sed 's/^/# /'
   rm -rf $BATS_SUITE_TMPDIR
 }
 
