@@ -45,14 +45,15 @@ jobs:
           grep -B 999 -A 2 biosample_acc ${{ matrix.DATASET }} > ${{ matrix.DATASET }}.short
           export DATASET=$(realpath ${{ matrix.DATASET }}).short
           echo "Abbreviated dataset: $DATASET"
-          echo "DEBUG: allowing for error exit code in TAP"
-          bats t/* || true
+          bats t/*
       - name: full unit testing with ${{ matrix.DATASET }}
         run:  |
+          echo "SKIP: TEMPORARY FIX FOR BANDWIDTH"
+          exit 0
           export NCBI_API_KEY=${{ secrets.NCBI_API_KEY }}
           if [[ -z "$NCBI_API_KEY" ]]; then echo "# NCBI_API_KEY not found in github secrets!"; fi;
           echo "Full dataset: ${{ matrix.DATASET }}"
           export DATASET=$(realpath ${{ matrix.DATASET }})
           echo "DEBUG: allowing for error exit code in TAP"
-          bats t/* || true
+          bats t/*
 
