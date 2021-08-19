@@ -11,11 +11,11 @@ jobs:
     strategy:
       matrix:
         DATASET:
-          - datasets/Dataset4.tsv
-          - datasets/Dataset5.tsv
+          - datasets/sars-cov-2-voivoc.tsv
+          - datasets/sars-cov-2-nonvoivoc.tsv
           - datasets/sars-cov-2-coronahit-rapid.tsv
           - datasets/sars-cov-2-coronahit-routine.tsv
-          - datasets/sarscov2-SNF-A.tsv
+          - datasets/sars-cov-2-SNF-A.tsv
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2

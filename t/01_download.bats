@@ -4,34 +4,44 @@
 
 load "inc/environment"
 
-@test "executables in path" {
-  which esearch
-  which fastq-dump
-  which GenFSGopher.pl
+function note(){
+  echo "# $1" >&3
 }
 
-@test "download datasets" {
+@test "Environment" {
+  note "Looking for executables"
+  note "============="
+  which esearch | sed 's/^/# /' >&3
+  which fastq-dump | sed 's/^/# /' >&3
+  which GenFSGopher.pl | sed 's/^/# /' >&3
+
+  note "Looking at environmental variables"
+  note "============"
   if [[ -z "$DATASET" ]]; then
-    skip "No dataset was found in the environment variable DATASET"
+    note "No dataset was found in the environment variable DATASET"
+    false
+  fi
+  note "DATASET: $DATASET"
+}
+
+@test "download dataset" {
+  if [[ -z "$DATASET" ]]; then
+    note "No dataset was found in the environment variable DATASET"
+    false
   fi
 
-  echo "# Downloading $DATASET" >&3
+  note "Downloading DATASET $DATASET"
   name=$(basename $DATASET)
-  run GenFSGopher.pl -o $BATS_SUITE_TMPDIR/$name.out --numcpus $NUMCPUS $DATASET 2>&3 1>&3
-  find $BATS_SUITE_TMPDIR -type f -exec sha256sum {} \; | sed 's/^/# /' 2>&3 1>&3
-  if [[ "$status" -gt 0 ]]; then
-    echo "# ERROR on GenFSGopher! Running sha256sums in case it helps correct the spreadsheet" >&3
-    for file in $BATS_SUITE_TMPDIR/$name.out/*; do
-      file $file
-      ls -lh $file
-      sha256sum $file
-    done | sed 's|^|# |' >&3
-    
+  run GenFSGopher.pl -o $BATS_SUITE_TMPDIR/$name.out --numcpus $NUMCPUS $DATASET
+  #mkdir $BATS_SUITE_TMPDIR/$name.out;echo "foo" > $BATS_SUITE_TMPDIR/$name.out/bar.txt; run false
+  exit_code="$status"
+  note "Independently running sha256sum outside of GenFSGopher.pl"
+  find $BATS_SUITE_TMPDIR -type f -exec sha256sum {} \; | sed 's/^/# /' >&3
+  if [ "$exit_code" -gt 0 ]; then
+    note "ERROR on GenFSGopher!"
     # invoke an exit code > 1 with 'false'
     false
   fi
-  echo "$0: DEBUG !!!!!!!!!!!"
-  find $BATS_SUITE_TMPDIR -type f -exec sha256sum {} \; | sed 's/^/# /'
-  rm -rf $BATS_SUITE_TMPDIR
+  rm -rf $BATS_SUITE_TMPDIR/$name.out
 }
 
