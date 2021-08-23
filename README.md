@@ -7,6 +7,15 @@ Grab the latest stable release under the releases tab.  If you are feeling adven
 
     $ export PATH=$PATH:$HOME/bin/datasets/scripts
 
+Additionally, ensure that you have the [NCBI API key](https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities).
+This key associates your edirect requests with your username.
+Without it, edirect requests might be buggy.
+After obtaining an NCBI API key, add it to your environment with
+
+    export NCBI_API_KEY=unique_api_key_goes_here
+
+where `unique_api_key_goes_here` is a unique hexadecimal number with characters from 0-9 and a-f.
+
 ### Dependencies
 
 In addition to the installation above, please install the following.
@@ -32,6 +41,9 @@ In addition to the installation above, please install the following.
     rm edirect.tar.gz
     export PATH=$PATH:$HOME/bin/edirect
     ./edirect/setup.sh
+
+**NOTE**: edirect needs an NCBI API key.
+Instructions can be found at https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities
 
 ### Installing sha256sum
 

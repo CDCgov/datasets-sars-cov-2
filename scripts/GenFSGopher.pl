@@ -53,6 +53,11 @@ sub main{
     return 0;
   }
 
+  # Check that the NCBI API key is in the profile
+  if(!$ENV{NCBI_API_KEY}){
+    logmsg "WARNING: no NCBI key was detected in variable NCBI_API_KEY! Please add it to your environment. See README.md for more details";
+  }
+
   # Get the output directory and spreadsheet, and make sure they exist
   $$settings{outdir}||=die "ERROR: need outdir parameter\n".usage();
   mkdir $$settings{outdir} if(!-d $$settings{outdir});
