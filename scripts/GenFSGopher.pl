@@ -64,6 +64,15 @@ sub main{
   my $spreadsheet=$ARGV[0] || die "ERROR: need spreadsheet file!\n".usage();
   die "ERROR: cannot find $spreadsheet" if(!-e $spreadsheet);
 
+  # The prefetch step gets hung up on empty directories and
+  # so we will remove those
+  for my $dir(glob("$$settings{outdir}/*")){
+    next if(!-d $dir); # skip nondirectories
+    # Remove the directory: should silently fail if the 
+    # directory is not empty; should succeed if empty.
+    rmdir $dir && logmsg "Removed empty directory $dir";
+  }
+
   # Read the spreadsheet, keeping in mind which format
   my $infoTsv = {};
   if($$settings{format} eq 'tsv'){
