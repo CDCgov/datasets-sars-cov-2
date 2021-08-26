@@ -1,7 +1,19 @@
+# Datasets
+Benchmark datasets for WGS analysis of SARS-CoV-2.
 This document is under governance review. When the review completes as appropriate per local and agency processes, the project team will be allowed to remove this notice. This material is draft.
 
-# datasets
-Benchmark datasets for WGS analysis.
+## Purpose
+Technical Outreach and Assistance for States Team (TOAST) developed benchmark datasets for SARS-CoV-2 sequencing which are designed to help users at varying stages of building sequencing capacity. It consists of six datasets summarized in the table below, each chosen to represent a different use case.
+
+## Summary Table
+| Dataset  | Name | Description | Intended Use |
+| ------------- | ------------- | ------------- | ------------- | 
+| 1 | Boston Outbreak   | A cohort of 63 samples from a real outbreak with three introductions, metagenomic approach  | To understand the features of virus transmission during real outbreak setting   |
+| 2 | CoronaHit rapid   | A cohort of 39 samples prepared by 18 hr wet-lab protocol and sequenced by two platforms (Illumina vs MinIon), amplicon-based approach  | To verify that a bioinformatics pipeline finds virtually no differences between platforms of the same genome  |
+| 3 | CoronaHit routine | A cohort of 69 samples prepared by 30 hr wet-lab protocol and sequenced by two platforms (Illumina vs MinIon), amplicon-based approach  | To verify that a bioinformatics pipeline finds virtually no differences between platforms of the same genome  |
+| 4 | VOI/VOC lineages  | A cohort of 16 samples from 11 representative CDC defined VOI/VOC lineages as of 05/30/2021, amplicon-based approach  | To benchmark lineage-calling bioinformatics software, especially for VOI/VOCs |
+| 5 | Non-VOI/VOC lineages | A cohort of 39 samples from representative non VOI/VOC lineages, amplicon-based approach | To benchmark lineage-calling bioinformatics software, nonspecific to VOI/VOCs  |
+| 6 | Failed QC | A cohort of 24 samples failed basic QC metrics, covering 8 possible failure scenarios, amplicon-based approach  | To serve as controls to test bioinformatics QC cutoffs |
 
 ## Installation
 
