@@ -69,12 +69,6 @@ If you do not have sha256sum (e.g., if you are on MacOS), then try to make the s
 
 This shell function will need to be defined in the current session. To make it permanent for future sessions, add it to `$HOME/.bashrc`.
 
-## For the impatient
-
-We have included a script that downloads all datasets, runs the CFSAN SNP Pipeline, infers a phylogeny, and compares the tree against the suggested tree.  All example commands are present in the shell script for your manual inspection.
-
-    $ bash EXAMPLES/downloadAll.sh
-
 ## Downloading a dataset
 To run, you need a dataset in tsv format.  Here is the usage statement:
 
@@ -129,7 +123,7 @@ To create your own dataset and to make it compatible with the existing script(s)
 
 ## Citation
 
-If this project has helped you, please cite us with
+If this project has helped you, please cite both this website and the original publication:
 
 Timme, Ruth E., et al. "Benchmark datasets for phylogenomic pipeline validation, applications for foodborne pathogen surveillance." PeerJ 5 (2017): e3893.
 
