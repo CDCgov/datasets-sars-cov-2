@@ -29,7 +29,12 @@ After obtaining an NCBI API key, add it to your environment with
 
     export NCBI_API_KEY=unique_api_key_goes_here
 
-where `unique_api_key_goes_here` is a unique hexadecimal number with characters from 0-9 and a-f.
+where `unique_api_key_goes_here` is a unique hexadecimal number with characters from 0-9 and a-f. You should also set your email address in the 
+EMAIL environment variable as edirect tries to guess it, which is an error prone process. Add this variable to your environment with
+
+    export EMAIL=my@email.address
+ 
+using your own email address instead of my@email.address.
 
 ### Dependencies
 
