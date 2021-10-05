@@ -9,12 +9,12 @@ Technical Outreach and Assistance for States Team (TOAST) developed benchmark da
 ## Summary Table
 | Dataset  | Name | Description | Intended Use |
 | ------------- | ------------- | ------------- | ------------- | 
-| 1 | Boston Outbreak   | A cohort of 63 samples from a real outbreak with three introductions, metagenomic approach  | To understand the features of virus transmission during real outbreak setting   |
-| 2 | CoronaHit rapid   | A cohort of 39 samples prepared by 18 hr wet-lab protocol and sequenced by two platforms (Illumina vs MinIon), amplicon-based approach  | To verify that a bioinformatics pipeline finds virtually no differences between platforms of the same genome  |
-| 3 | CoronaHit routine | A cohort of 69 samples prepared by 30 hr wet-lab protocol and sequenced by two platforms (Illumina vs MinIon), amplicon-based approach  | To verify that a bioinformatics pipeline finds virtually no differences between platforms of the same genome  |
-| 4 | VOI/VOC lineages  | A cohort of 16 samples from 11 representative CDC defined VOI/VOC lineages as of 05/30/2021, amplicon-based approach  | To benchmark lineage-calling bioinformatics software, especially for VOI/VOCs |
-| 5 | Non-VOI/VOC lineages | A cohort of 39 samples from representative non VOI/VOC lineages, amplicon-based approach | To benchmark lineage-calling bioinformatics software, nonspecific to VOI/VOCs  |
-| 6 | Failed QC | A cohort of 24 samples failed basic QC metrics, covering 8 possible failure scenarios, amplicon-based approach  | To serve as controls to test bioinformatics QC cutoffs |
+| 1 | Boston Outbreak   | A cohort of 63 samples from a real outbreak with three introductions, Illumina platform, metagenomic approach  | To understand the features of virus transmission during real outbreak setting, metagenomic sequencing   |
+| 2 | CoronaHiT rapid   | A cohort of 39 samples prepared by different wet-lab approaches and sequenced at two platforms (Illumina vs MinIon) with MinIon running for 18 hrs, amplicon-based approach  | To verify that a bioinformatics pipeline finds virtually no differences between platforms of the same genome, outbreak setting  |
+| 3 | CoronaHiT routine | A cohort of 69 samples prepared by different wet-lab approaches and sequenced at two platforms (Illumina vs MinIon) with MinIon running for 30 hrs, amplicon-based approach  | To verify that a bioinformatics pipeline finds virtually no differences between platforms of the same genome, routinue surveillance  |
+| 4 | VOI/VOC lineages  | A cohort of 16 samples from 10 representative CDC defined VOI/VOC lineages as of 05/30/2021, Illumina platform, amplicon-based approach  | To benchmark lineage-calling bioinformatics pipeline especially for VOI/VOCs, bioinformatics pipeline validation  |
+| 5 | Non-VOI/VOC lineages | A cohort of 39 samples from representative non VOI/VOC lineages as of 05/30/2021, Illumina platform, amplicon-based approach | To benchmark lineage-calling pipeline nonspecific to VOI/VOCs, bioinformatics pipeline validation  |
+| 6 | Failed QC | A cohort of 24 samples failed basic QC metrics, covering 8 possible failure scenarios, Illumina platform, amplicon-based approach  | To serve as controls to test bioinformatics quality control cutoffs |
 
 ## Installation
 
