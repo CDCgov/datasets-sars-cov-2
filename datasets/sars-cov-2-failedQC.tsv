@@ -1,0 +1,27 @@
+Organism	SARS-CoV-2												
+Outbreak													
+pmid													
+tree													
+source	TOAST												
+dataType	TOAST_failed_sequencing_runs												
+biosample_acc	strain	genBankAssembly	nucleotide	SRArun_acc	outbreak	dataSetName	suggestedReference	Lineage_v3.1.3	benchmark_dataset	sha256sumAssembly	sha256sumnucleotide	sha256sumRead1	sha256sumRead2
+-	Wuhan-1	NC_045512.2	NA	NA	SNF	A	TRUE		-	-	-	-	-
+SAMN22226848	benchmark_bad1			SRR16298175			FALSE		"Failed sample, high host contamination (62%)"			08af60062f06d82da975d53c1d6bac362347fb1f4d335838eedc0f908d293439	3b4264e6e6bfa0a64630afe87de69cb25ffd3456fdafa4b262bca2849bea8e3e
+SAMN22226849	benchmark_bad2			SRR16298174			FALSE		"Failed sample, low coverage, high host contamination (87%)"			88dd497e5551da0d267ed53c1260995e8730021df294a122f328bfd2df9d0f9e	47f92d6067e6bc778096f15cf20638859832b940981bc838809acf04346f7042
+SAMN22226850	benchmark_bad3			SRR16298164			FALSE		"Failed sample, high host contamination (96%)"			8d60664777ce3eb8b173e3548265d64017d697a1da22ccb6fc0315eb0254d369	1a01ce5651fee8e7b627b675a117071b1832fe37231c8971d48953d3b0c7477c
+SAMN22226851	benchmark_bad4			SRR16298163			FALSE		"Failed sample, low coverage"			788ea434f0434310b4556d801d7bcf8b3afd5442a1c831cdf5ea0b050a3295fb	f59a35068e9c0f5ee89f25299a3afa6ed6fc2f5ed02428414c0371df460cfca4
+SAMN22226852	benchmark_bad5			SRR16298162			FALSE		"Failed sample, low coverage"			2833398cd6ab2f8cc56de38ca6a1a24042ae31b7c60907a5093419f20aa55d51	2ae6451619d6c893b2b8913ea1dcf23a6d0b95bdbe376b5b57c1c539aea98a2d
+SAMN22226853	benchmark_bad6			SRR16298161			FALSE		"Failed sample, low coverage breadth"			f4d2f6a32c1f61a74e1ed1a100c0fadbf3e25299cc09ad1368487ff4ad78c2ce	20a8a29622f6cb4e2d800837ee37e7b75993d2f354bc0c3abd712fd446cd57e8
+SAMN22226854	benchmark_bad7			SRR16298160			FALSE		"Failed sample, ambigous sites (Ns) >3000"			31013f5d0ff7fb0e86d0bdd8deda8f7783183e58413658b0a9f81e1d0ab0db8f	6477dac75ad2aea5345755df4395c875198b7fbb9bbcf5dc2271bbc6186d36f5
+SAMN22226855	benchmark_bad8			SRR16298159			FALSE		"Failed sample, high host contamination (69%)"			1c46121eb298d42e26c985dbce93c4e0339975ae62d1c3f34f3dad3921b92392	12fe7b2fd02c95a9e5cc5b5e3e169d8c6d7a9e4c2d13a406a6a3e0f79d0d1b06
+SAMN22226856	benchmark_bad9			SRR16298158			FALSE		"Failed sample, high host contamination (50%)"			9b28513ca46adfa8b11edfa99cc28ecd72f7db76b4179888331a7da579526c74	a4404165eaa6dffd17a1fd450b494e2a27988438424de26d768ac5dac5bf6ca9
+SAMN22226857	benchmark_bad10			SRR16298157			FALSE		"Failed sample, low phred score leading to insufficient paired reads"			c509466c599ecbb2e6583343549b7c82ff3003fd70929020591ea7418a714f0f	98323cf08eafe5e7820e8a72689817cfaa61ce9c97b8ed546142a72691a7383f
+SAMN22226858	benchmark_bad11			SRR16298173			FALSE		"Failed sample, ambigous sites (Ns) >3000"			f0cda2af2c50cda9b2c111386f04dfc4833998c12546275babb0d40569fffb2a	7b522e464c902aa05e208e102d3e6117fe8d6caf3740aaa578b129a8a5bc9c35
+SAMN22226859	benchmark_bad12			SRR16298172			FALSE		"Failed sample, low coverage"			81240f5e7ca0308376171123bc3b23810f5628e6d95df35ee7da1cc991995015	d5e1a6e3b6a9eff0c08a4bdd0d3225c9000870599c5814ff4e477726bbeb02eb
+SAMN22226860	benchmark_bad13			SRR16298171			FALSE		"Failed sample, VADR alert >1"			3c0ce8aa3ffb62c9e0e70c63039f430b180d38b3df70b7e107070b1401e33958	85434dab0eac129f495d137ab26b712737779694d2b4e40b9d9dbee1dfa18c04
+SAMN22226861	benchmark_bad14			SRR16298170			FALSE		"Failed positive control, ambigous sites (Ns) > 3000, amplicon dropout"			777e35d6e5a8444f9493a591ba88db24203a95c45178eec1a922d2f7424e81a9	9a465446b89cba8fe45eaea28bee85ab459cd1cea9c2bd524098fe63808258d5
+SAMN22226862	benchmark_bad15			SRR16298169			FALSE		"Failed positive control, ambigous sites (Ns) > 3000"			d31cd1d6d298d18ca0b3d3609060201b80711613602b332044ae4e1b6ab1214b	783e78a6d5822e88f0cbe3a493e3188c2f757ea79e42e9d3727c053179c34c08
+SAMN22226863	benchmark_bad16			SRR16298168			FALSE		"Failed positive control, long stretch of Ns > 100"			c4e00c37a6f957a70ff2ff164c9e3a42cfeeb30cf0a182100f1041c919a0d0ed	f50c5c1e6b0cb8a5cebf19a2e2231c59d5394342341487faa66f8020be0ca5c3
+SAMN22226864	benchmark_bad17			SRR16298167			FALSE		"Failed negative control (non-template control), contamination"			312a67a63aa66dd1512b0c690d56fea52e36b567f826cf400885d90cd3beff73	e6cf9ac78a1cc76cdda4d4b90ca21195d34071a306b3eeae5339d3e70b376c45
+SAMN22226865	benchmark_bad18			SRR16298166			FALSE		"Failed negative control (non-template control), contamination"			6b6fae5912b57b0866ff4be53892ef1694bf8ccde926c54803ada222cb395795	8a1ba8d06f32a36758bcc12cbe19d41b1f71284a629505e9b933dd8e25bcc89f
+SAMN22226866	benchmark_bad19			SRR16298165			FALSE		"Failed Negative control (water), contamination"			52f5154ee6197e081a69b0e7d528ab1034d06da3f32f871abeca8e8829df05e6	eef3a88d01ce74af2e9ee15b73545e8f9275db9f4a757525fd516b835db0fda1
