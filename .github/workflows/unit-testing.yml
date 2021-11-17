@@ -34,6 +34,8 @@ jobs:
         run:  |
           pwd
           tree -d
+          echo EVENT_NAME ${{ github.event_name }}
+          echo ACTION ${{ github.event.action }}
       - name: unit testing - just env
         run:  |
           bats t/00_env.bats
