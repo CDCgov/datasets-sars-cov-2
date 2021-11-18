@@ -32,13 +32,14 @@ function note(){
 
   note "Downloading DATASET $DATASET"
   name=$(basename $DATASET)
-  run GenFSGopher.pl -o $BATS_SUITE_TMPDIR/$name.out --numcpus $NUMCPUS $DATASET
+  run GenFSGopher.pl -o $BATS_SUITE_TMPDIR/$name.out --numcpus $NUMCPUS $DATASET 
   #mkdir $BATS_SUITE_TMPDIR/$name.out;echo "foo" > $BATS_SUITE_TMPDIR/$name.out/bar.txt; run false
   exit_code="$status"
+  echo "$output" | sed 's/^/# /' >&3
   note "Independently running sha256sum outside of GenFSGopher.pl"
   find $BATS_SUITE_TMPDIR -type f -exec sha256sum {} \; | sed 's/^/# /' >&3
   if [ "$exit_code" -gt 0 ]; then
-    note "ERROR on GenFSGopher!"
+    note "ERROR on GenFSGopher! exit code $exit_code"
     # invoke an exit code > 1 with 'false'
     false
   fi
