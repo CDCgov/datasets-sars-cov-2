@@ -16,6 +16,7 @@ jobs:
           - datasets/sars-cov-2-coronahit-rapid.tsv
           - datasets/sars-cov-2-coronahit-routine.tsv
           - datasets/sars-cov-2-SNF-A.tsv
+          - datasets/sars-cov-2-failedQC.tsv
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
