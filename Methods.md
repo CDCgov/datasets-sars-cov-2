@@ -8,8 +8,8 @@ First, we ran [Fastqc](https://github.com/s-andrews/FastQC) to evaluate the basi
 
 Further, QC on all the datasets was done as part of [Titan v1.4.4](https://github.com/theiagen/public_health_viral_genomics), which is a pipeline that has its origins in the public health ([StaPH-B](http://www.staphb.org/)) community and is now underactive development from Theiagen. This is a containerized pipeline and it is [available on bioconda](https://bioconda.github.io/recipes/titan-gc/README.html). There is a pipeline for Illumina and for ONT so depending on the datatype we used one of those. Details about the pipeline and the outputs are found on their [Read the Docs](https://public-health-viral-genomics-theiagen.readthedocs.io/en/latest/titan_workflows.html#titan-illumina-pe). 
 
-**NOTE: The default for Titan is to use [UShER](https://www.nature.com/articles/s41588-021-00862-7) for lineage calls.**
-The container for [Pangolin v3.1.3 (PangoLEARN 2021-06-15)](https://hub.docker.com/layers/staphb/pangolin/3.1.3-pangolearn-2021-06-15/images/sha256-bb39b340c26201229d334e586aa24d3417e468eba5ceb1671b4ab45961d18d05?context=explore). Has the following dependencies in it:  
+**NOTE: The default for Titan is to use [UShER](https://www.nature.com/articles/s41588-021-00862-7) for lineage calls and we kept this default parameter.**
+The container for [Pangolin v3.1.3 (PangoLEARN 2021-06-15)](https://hub.docker.com/layers/staphb/pangolin/3.1.3-pangolearn-2021-06-15/images/sha256-bb39b340c26201229d334e586aa24d3417e468eba5ceb1671b4ab45961d18d05?context=explore) has the following dependencies in it:  
 
 - UShER v0.3.1  
 - Scorpio v0.3.1
