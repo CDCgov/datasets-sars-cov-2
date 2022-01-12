@@ -190,7 +190,11 @@ sub tsvToMakeHash{
         $$make{$filename1}={
           CMD=>[
             "\@echo Downloading $make_target $F{srarun_acc}",
-            "fastq-dump --defline-seq '$seqIdTemplate' --defline-qual '+' --split-files -O $dumpdir --gzip $F{srarun_acc} ",
+            "fastq-dump --defline-seq '$seqIdTemplate' --defline-qual '+' --split-3 -O $dumpdir $F{srarun_acc}",
+            "if [ ! -f $dumpdir/$F{srarun_acc}_1.fastq ]; then mv $dumpdir/$F{srarun_acc}.fastq $dumpdir/$F{srarun_acc}_1.fastq; \
+            elif [ -f $dumpdir/$F{srarun_acc}_1.fastq -a -f $dumpdir/$F{srarun_acc}_2.fastq ]; then rm -f $dumpdir/$F{srarun_acc}.fastq; fi",
+            "gzip -f $dumpdir/$F{srarun_acc}_1.fastq",
+            "gzip -f $dumpdir/$F{srarun_acc}_2.fastq || true",
             "mv $dumpdir/$F{srarun_acc}_1.fastq.gz '$make_target'",
           ],
           DEP=>[
@@ -198,6 +202,7 @@ sub tsvToMakeHash{
             "prefetch.done",
           ],
         };
+
         push(@{ $$make{"all"}{DEP} }, $filename1, $filename2);
 
         $$make{"prefetch.done"}{CMD}[0] .= " $F{srarun_acc}";
