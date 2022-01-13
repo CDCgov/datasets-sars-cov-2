@@ -12,6 +12,7 @@ use Data::Dumper;
 use File::Basename qw/fileparse dirname basename/;
 use File::Temp qw/tempdir tempfile/;
 use File::Spec;
+use File::Copy qw/cp/;
 
 my $VERSION=0.5;
 
@@ -63,6 +64,9 @@ sub main{
   mkdir $$settings{outdir} if(!-d $$settings{outdir});
   my $spreadsheet=$ARGV[0] || die "ERROR: need spreadsheet file!\n".usage();
   die "ERROR: cannot find $spreadsheet" if(!-e $spreadsheet);
+
+  cp($spreadsheet, "$$settings{outdir}/in.tsv")
+    or die "ERROR: could not copy $spreadsheet into $$settings{outdir}/in.tsv: $!";
 
   # The prefetch step gets hung up on empty directories and
   # so we will remove those
@@ -379,7 +383,7 @@ sub tsvToMakeHash{
     # If we got up to this line, it clues us in that we
     # have reached the meat of the spreadsheet.
     # Get the header.
-    elsif(/^biosample_acc/){
+    elsif(/biosample_acc/i && /strain/i){
       $have_reached_biosample=1;
       @header=split(/\t/,lc($_));
       next;

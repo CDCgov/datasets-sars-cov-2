@@ -93,16 +93,16 @@ sub updateChecksums{
     logmsg "Hashsums for $strain";
     # Copy the hash so that we aren't modifying in place
     my %s = %{ $$info{$strain} };
-    if($s{SRArun_acc}){
+    if(defined1($s{SRArun_acc})){
       logmsg "  => SRArun_acc ($s{SRArun_acc})";
       $s{sha256sumRead1} = checksum("$dir/${strain}_1.fastq.gz", $settings);
       $s{sha256sumRead2} = checksum("$dir/${strain}_2.fastq.gz", $settings);
     }
-    if($s{nucleotide}){
+    if(defined1($s{nucleotide})){
       logmsg "  => nucleotide ($s{nucleotide})";
       $s{sha256sumnucleotide} = checksum("$dir/$s{strain}.fna", $settings);
     }
-    if($s{assembly}){
+    if(defined1($s{assembly})){
       logmsg "  => assembly ($s{assembly})";
       $s{sha256sumAssembly} = checksum("$dir/$s{strain}.fna", $settings);
     }
@@ -117,6 +117,18 @@ sub updateChecksums{
 
   return \%newInfo;
     
+}
+
+sub defined1{
+  my($var) = @_;
+
+  return 0 if(!defined($var));
+  return 0 if(!$var);
+
+  $var =~ s/\s+//g;
+  return(
+    $var !~ /^NA/i && $var ne '-' && $var !~ /^missing$/i
+  );
 }
 
 sub readSpreadsheet{
@@ -140,6 +152,7 @@ sub readSpreadsheet{
     }
     elsif($is_header){
       my($key, $value) = @F;
+      $value ||= '-';
       $info{_head}{$key} = $value;
     }
     else{
