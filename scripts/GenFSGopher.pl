@@ -191,10 +191,16 @@ sub tsvToMakeHash{
           CMD=>[
             "\@echo Downloading $make_target $F{srarun_acc}",
             "fastq-dump --defline-seq '$seqIdTemplate' --defline-qual '+' --split-3 -O $dumpdir $F{srarun_acc}",
-            "if [ ! -f $dumpdir/$F{srarun_acc}_1.fastq ]; then mv $dumpdir/$F{srarun_acc}.fastq $dumpdir/$F{srarun_acc}_1.fastq; \
-            elif [ -f $dumpdir/$F{srarun_acc}_1.fastq -a -f $dumpdir/$F{srarun_acc}_2.fastq ]; then rm -f $dumpdir/$F{srarun_acc}.fastq; fi",
+            # If it's a single-end run then --split-3 will make a file SRA-accession.fastq without _1
+            # and so we will rename it with _1.
+            # In the elif statement, if both _1 and _2 are present, remove any possible SRA-accession
+            # that doesn't have _1 or _2.
+            "if [ ! -f $dumpdir/$F{srarun_acc}_1.fastq ]; then mv $dumpdir/$F{srarun_acc}.fastq $dumpdir/$F{srarun_acc}_1.fastq;  elif [ -f $dumpdir/$F{srarun_acc}_1.fastq -a -f $dumpdir/$F{srarun_acc}_2.fastq ]; then rm -f $dumpdir/$F{srarun_acc}.fastq; fi",
+            # Force the creation of the _2 file
+            "touch $dumpdir/$F{srarun_acc}_2.fastq",
+            # Move the gzip compression out of the fastq-dump statement to here
             "gzip -f $dumpdir/$F{srarun_acc}_1.fastq",
-            "gzip -f $dumpdir/$F{srarun_acc}_2.fastq || true",
+            "gzip -f $dumpdir/$F{srarun_acc}_2.fastq",
             "mv $dumpdir/$F{srarun_acc}_1.fastq.gz '$make_target'",
           ],
           DEP=>[
@@ -429,6 +435,8 @@ sub writeMakefile{
   print MAKEFILE "MAKEFLAGS += --no-builtin-rules\n";
   print MAKEFILE "MAKEFLAGS += --no-builtin-variables\n";
   print MAKEFILE "export PATH := $scriptsDir:\$(PATH)\n";
+  print MAKEFILE "\n";
+  print MAKEFILE "DELETE_ON_ERROR:\n";
   print MAKEFILE "\n";
   for my $target(@target){
     my $properties=$$m{$target};
