@@ -99,6 +99,7 @@ sub tsvToMakeHash{
   my $make_dep = '$<';
   my $make_deps = '$^';
   my $bash_dollar = '$$';
+  my $all_targets = '$^';
 
   # For the fastq-dump command
   my $seqIdTemplate=$$settings{seqIdTemplate};
@@ -106,16 +107,17 @@ sub tsvToMakeHash{
   
   # Initialize a make hash
   my $make={};
-  # TODO rm -f $make_target.tmp and pipe all hashsum contents to $make_target.tmp.
-  # TODO last step of sha256sum.txt, mv -v $make_target.tmp to $make_target.
-  $$make{"sha256sum.txt"}{CMD}=["rm -f $make_target"];
+  $$make{"sha256sum.log"}={
+    CMD=>[],
+    DEP=>[],
+  };
   $$make{"all"}={
     CMD=>[
       '@echo "DONE! If you used this script in a publication, please cite us at github.com/WGS-standards-and-analysis/datasets"',
     ],
     DEP=>[
       "tree.dnd",
-      "sha256sum.txt",
+      "sha256sum.log",
     ],
   };
   $$make{".PHONY"}{DEP}=['all'];
@@ -159,8 +161,8 @@ sub tsvToMakeHash{
         # Any error checking before we start with this entry.
         $F{strain} || die "ERROR: $F{srarun_acc} does not have a strain name!";
 
-        my $filename1="$F{strain}_1.fastq.gz";
-        my $filename2="$F{strain}_2.fastq.gz";
+        my $filename1="$F{strain}_1.fastq";
+        my $filename2="$F{strain}_2.fastq";
         my $dumpdir='.';
 
         if($$settings{layout} eq 'onedir'){
@@ -188,7 +190,8 @@ sub tsvToMakeHash{
             $dumpdir, $filename1,
           ],
           CMD=>[
-            "mv $dumpdir/$F{srarun_acc}_2.fastq.gz '$make_target' || touch '$make_target'",
+            #"mv $dumpdir/$F{srarun_acc}_2.fastq '$make_target' || touch '$make_target'",
+            "if [ -e '$dumpdir/$F{srarun_acc}_2.fastq' ]; then mv $dumpdir/$F{srarun_acc}_2.fastq '$make_target'; else touch '$make_target'; fi;",
           ],
         };
         $$make{$filename1}={
@@ -202,23 +205,36 @@ sub tsvToMakeHash{
             "if [ ! -f $dumpdir/$F{srarun_acc}_1.fastq ]; then mv $dumpdir/$F{srarun_acc}.fastq $dumpdir/$F{srarun_acc}_1.fastq;  elif [ -f $dumpdir/$F{srarun_acc}_1.fastq -a -f $dumpdir/$F{srarun_acc}_2.fastq ]; then rm -f $dumpdir/$F{srarun_acc}.fastq; fi",
             # Force the creation of the _2 file
             "touch $dumpdir/$F{srarun_acc}_2.fastq",
-            # Move the gzip compression out of the fastq-dump statement to here
-            "gzip -f $dumpdir/$F{srarun_acc}_1.fastq",
-            "gzip -f $dumpdir/$F{srarun_acc}_2.fastq",
-            "mv $dumpdir/$F{srarun_acc}_1.fastq.gz '$make_target'",
+            "mv $dumpdir/$F{srarun_acc}_1.fastq '$make_target'",
           ],
           DEP=>[
             $dumpdir,
             "prefetch.done",
           ],
         };
+        $$make{"$filename1.sha256"}={
+          CMD=>[
+            "echo \"$F{sha256sumread1}  $filename1\" >> $make_target",
+          ],
+          DEP=>[
+            $filename1,
+          ],
+        },
+        $$make{"$filename2.sha256"}={
+          CMD=>[
+            "echo \"$F{sha256sumread2}  $filename2\" >> $make_target",
+          ],
+          DEP=>[
+            $filename2,
+          ],
+        },
 
-        push(@{ $$make{"all"}{DEP} }, $filename1, $filename2);
+        #push(@{ $$make{"all"}{DEP} }, "$filename1.sha256", "$filename2.sha256");
 
         $$make{"prefetch.done"}{CMD}[0] .= " $F{srarun_acc}";
 
         if($$settings{shuffled}){
-          my $filename3="$dumpdir/$F{strain}.shuffled.fastq.gz";
+          my $filename3="$dumpdir/$F{strain}.shuffled.fastq";
           $$make{$filename3}={
             CMD=>[
               "run_assembly_shuffleReads.pl $filename1 $filename2 | gzip -c > $make_target",
@@ -233,17 +249,23 @@ sub tsvToMakeHash{
 
         # Checksums, if they exist and if we're not recalculating
         if($F{sha256sumread1} && $F{sha256sumread1} !~ /\-|NA/ && !$$settings{'calculate-hashsums'}){
-          push(@{ $$make{"sha256sum.txt"}{CMD} }, "echo \"$F{sha256sumread1}  $filename1\" >> $make_target");
-          push(@{ $$make{"sha256sum.txt"}{DEP} }, $filename1);
+          push(@{ $$make{"sha256sum.log"}{DEP} }, "$filename1.sha256");
         } 
 
         if($F{sha256sumread2} && $F{sha256sumread2} !~ /\-|NA/ && !$$settings{'calculate-hashsums'}){
-          push(@{ $$make{"sha256sum.txt"}{CMD} }, "echo \"$F{sha256sumread2}  $filename2\" >> $make_target");
-          push(@{ $$make{"sha256sum.txt"}{DEP} }, $filename2);
+          push(@{ $$make{"sha256sum.log"}{DEP} }, "$filename2.sha256");
         }
 
         # If we are requesting checksums, calculate them.
         if ($$settings{'calculate-hashsums'}) {
+          ...;
+          push(@{ $$make{"$filename1.sha256"} }, 
+            "sha256sum $filename1 >> $make_target",
+          );
+          push(@{ $$make{"$filename2.sha256"} }, 
+            "sha256sum $filename2 >> $make_target",
+          );
+
           push(@{ $$make{"sha256sum.txt"}{CMD} }, 
             "sha256sum $filename1 >> $make_target",
             "sha256sum $filename2 >> $make_target",
@@ -297,7 +319,7 @@ sub tsvToMakeHash{
             $dumpdir, $filename1
           ]
         };
-        push(@{ $$make{"all"}{DEP} }, $filename2);
+        #push(@{ $$make{"all"}{DEP} }, $filename2);
         $$make{$filename1}={
           CMD=>[
             "esearch -db assembly -query '$F{genbankassembly} NOT refseq[filter]' | elink -target nuccore -name assembly_nuccore_insdc | efetch -format gbwithparts > $make_target",
@@ -308,12 +330,19 @@ sub tsvToMakeHash{
         };
 
         # Calculate hashsums if they exist and if we are not recalculating them
-        if($F{sha256sumassembly} && $F{sha256sumassembly} !~ /\-|NA/ && !$$settings{'calculate-hashsums'}){
-          push(@{ $$make{"sha256sum.txt"}{CMD} }, "echo \"$F{sha256sumassembly}  $filename1\" >> $make_target");
-          push(@{ $$make{"sha256sum.txt"}{DEP} }, $filename1);
-        }
+        # (for genbanks and fastas (filename1 and 2 respectively)
+        # Well actually let's just do the assembly.
+        $$make{"$filename2.sha256"}={
+          CMD=>[
+            "echo \"$F{sha256sumassembly}  $filename2\" >> $make_target",
+          ],
+          DEP=>[
+            $filename2,
+          ],
+        };
 
         if ($$settings{'calculate-hashsums'}) {
+          ...;
           push(@{ $$make{"sha256sum.txt"}{CMD} }, 
             "sha256sum $filename1 >> $make_target",
           );
@@ -364,14 +393,23 @@ sub tsvToMakeHash{
             $dumpdir
           ],
         };
+
+        $$make{"$filename.sha256"}={
+          CMD=>[
+            "echo \"$F{sha256sumnucleotide}  $filename\" >> $make_target",
+          ],
+          DEP=>[
+            $filename,
+          ],
+        };
         
         # Calculate hashsums if they exist and if we are not recalculating them
         if($F{sha256sumnucleotide} && $F{sha256sumnucleotide} !~ /\-|NA/ && !$$settings{'calculate-hashsums'}){
-          push(@{ $$make{"sha256sum.txt"}{CMD} }, "echo \"$F{sha256sumnucleotide}  $filename\" >> $make_target");
-          push(@{ $$make{"sha256sum.txt"}{DEP} }, $filename);
+          push(@{ $$make{"sha256sum.log"}{DEP} }, "$filename.sha256");
         }
 
         if ($$settings{'calculate-hashsums'}) {
+          ...;
           push(@{ $$make{"sha256sum.txt"}{CMD} }, 
             "sha256sum $filename >> $make_target",
           );
@@ -414,7 +452,7 @@ sub tsvToMakeHash{
 
   # Last of the make target(s)
   if(!$$settings{'calculate-hashsums'}){
-    push(@{ $$make{"sha256sum.txt"}{CMD} }, "sha256sum -c $make_target");
+    push(@{ $$make{"sha256sum.log"}{CMD} }, "sha256sum -c $all_targets");
   }
 
   return $make;
@@ -431,8 +469,9 @@ sub writeMakefile{
   my @target=sort{
     return -1 if ($a eq 'all');
     #return 1 if($a=~/(^\.)|all/ && $b !~/(^\.)|all/);
-    return $a cmp $b;
+    return lc($a) cmp lc($b);
   } keys(%$m);
+  logmsg "@target";
 
   open(MAKEFILE,">",$makefile) or die "ERROR: could not open $makefile for writing: $!";
   print MAKEFILE "SHELL := /bin/bash\n";

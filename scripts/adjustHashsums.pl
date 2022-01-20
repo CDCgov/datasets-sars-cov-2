@@ -94,9 +94,13 @@ sub updateChecksums{
     # Copy the hash so that we aren't modifying in place
     my %s = %{ $$info{$strain} };
     if(defined1($s{SRArun_acc})){
-      logmsg "  => SRArun_acc ($s{SRArun_acc})";
-      $s{sha256sumRead1} = checksum("$dir/${strain}_1.fastq.gz", $settings);
-      $s{sha256sumRead2} = checksum("$dir/${strain}_2.fastq.gz", $settings);
+      my $R1 = "$dir/${strain}_1.fastq";
+      my $R2 = "$dir/${strain}_2.fastq";
+      
+      logmsg "  => SRArun_acc ($s{SRArun_acc}: $R1)";
+      $s{sha256sumRead1} = checksum($R1, $settings);
+      logmsg "  => SRArun_acc ($s{SRArun_acc}: $R2)";
+      $s{sha256sumRead2} = checksum($R2, $settings);
     }
     if(defined1($s{nucleotide})){
       logmsg "  => nucleotide ($s{nucleotide})";
@@ -170,6 +174,10 @@ sub readSpreadsheet{
 # Checksum a file consistently across this script
 sub checksum{
   my($file,$settings)=@_;
+  #my $sha256sys = `cat '$file' | sha256sum | cut -f 1 -d ' '`;
+  #chomp $sha256sys;
+  #return $sha256sys;
+
   my $sha=Digest::SHA->new("sha256");
   die "ERROR: could not checksum file $file because it doesn't exist!" if(!-e $file);
   $sha->addfile($file);
