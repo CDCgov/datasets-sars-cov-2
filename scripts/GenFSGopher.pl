@@ -14,7 +14,7 @@ use File::Temp qw/tempdir tempfile/;
 use File::Spec;
 use File::Copy qw/cp/;
 
-my $VERSION=0.5;
+my $VERSION=0.6;
 
 my $scriptInvocation="$0 ".join(" ",@ARGV);
 my $scriptsDir=dirname(File::Spec->rel2abs($0));
@@ -25,7 +25,7 @@ exit main();
 
 sub main{
   my $settings={run=>1};
-  GetOptions($settings,qw(tempdir=s help outdir=s format=s shuffled! layout=s numcpus=i run! version citation));
+  GetOptions($settings,qw(tempdir=s help outdir=s compressed format=s shuffled! layout=s numcpus=i run! version citation));
   die usage() if($$settings{help});
   $$settings{format}||="tsv"; # by default, input format is tsv
   $$settings{seqIdTemplate}||='@$ac_$sn[_$rn]/$ri';
@@ -124,6 +124,12 @@ sub tsvToMakeHash{
   $$make{".DEFAULT"}{DEP}=['all'];
   $$make{".DEFAULT"}{".DELETE_ON_ERROR"}=[];
   $$make{".DEFAULT"}{".SUFFIXES"}=[];
+  $$make{"compressed.done"}={
+    CMD=>[
+      "gzip -v $all_targets"
+    ],
+    DEP=>[],
+  };
 
   # We will append SRA Run IDs to the zeroth element
   # for this command like so:
@@ -228,6 +234,7 @@ sub tsvToMakeHash{
             $filename2,
           ],
         },
+        push(@{ $$make{"compressed.done"}{DEP} }, $filename1, $filename2);
 
         #push(@{ $$make{"all"}{DEP} }, "$filename1.sha256", "$filename2.sha256");
 
@@ -245,6 +252,7 @@ sub tsvToMakeHash{
             ]
           };
           push(@{ $$make{"all"}{DEP} }, $filename3);
+          push(@{ $$make{"compressed.done"}{DEP} }, $filename3);
         }
 
         # Checksums, if they exist and if we're not recalculating
@@ -471,7 +479,6 @@ sub writeMakefile{
     #return 1 if($a=~/(^\.)|all/ && $b !~/(^\.)|all/);
     return lc($a) cmp lc($b);
   } keys(%$m);
-  logmsg "@target";
 
   open(MAKEFILE,">",$makefile) or die "ERROR: could not open $makefile for writing: $!";
   print MAKEFILE "SHELL := /bin/bash\n";
@@ -512,6 +519,7 @@ sub runMakefile{
 
   # Notify the user about where hashsums are.
   if($$settings{'calculate-hashsums'}){
+    ...;
     logmsg "Hashsums will be calculated and recorded into sha256sum.txt. Remember to insert these new values into your spreadsheet.";
   }
 
@@ -524,11 +532,13 @@ sub usage{
   Usage: $0 -o outdir spreadsheet.dataset.tsv
   PARAM        DEFAULT  DESCRIPTION
   --outdir     <req'd>  The output directory
+  --compressed          Compress files in the output directory
   --format     tsv      The input format. Default: tsv. No other format
                         is accepted at this time.
   --layout     onedir   onedir   - Everything goes into one directory
                         hashsums - Like 'onedir', but will recalculate hashsums
                                    and will ignore hashsum warnings.
+                                   (deprecated in favor of adjustHashsums.pl)
                         byrun    - Each genome run gets its separate directory
                         byformat - Fastq files to one dir, assembly to another, etc
                         cfsan    - Reference and samples in separate directories with
