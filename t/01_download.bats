@@ -59,7 +59,7 @@ function note(){
     note "$output"
     note "Independently running sha256sum outside of GenFSGopher.pl"
     find $BATS_SUITE_TMPDIR -type f -exec sha256sum {} \; | sed 's/^/# /' >&3
-    find $BATS_SUITE_TMPDIR -type f -name '*.gz' | xargs -n 1 bash -c 'echo -ne "$0\t"; gzip -cd $0 | sha256sum' | sed 's/^/# /' >&3
+    find $BATS_SUITE_TMPDIR -type f -name '*.gz' | xargs -n 1 bash -c 'echo -ne "$0\t"; gzip -cd $0 | sha256sum' | sed 's/^/# /' >&3 || true
     if [ "$exit_code" -gt 0 ]; then
       note "ERROR on GenFSGopher! exit code $exit_code"
       # invoke an exit code > 1 with 'false'
