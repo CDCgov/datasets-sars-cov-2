@@ -14,7 +14,7 @@ use File::Temp qw/tempdir tempfile/;
 use File::Spec;
 use File::Copy qw/cp/;
 
-my $VERSION=0.6;
+my $VERSION="0.6.1";
 
 my $scriptInvocation="$0 ".join(" ",@ARGV);
 my $scriptsDir=dirname(File::Spec->rel2abs($0));
@@ -25,8 +25,8 @@ exit main();
 
 sub main{
   my $settings={run=>1};
-  GetOptions($settings,qw(tempdir=s help outdir=s compressed format=s shuffled! layout=s numcpus=i run! version citation));
-  die usage() if($$settings{help});
+  GetOptions($settings,qw(tempdir=s help outdir=s compressed|compression format=s shuffled! layout=s numcpus=i run! version citation));
+  usage() if($$settings{help});
   $$settings{format}||="tsv"; # by default, input format is tsv
   $$settings{seqIdTemplate}||='@$ac_$sn[_$rn]/$ri';
   $$settings{layout}||="onedir";
@@ -126,10 +126,17 @@ sub tsvToMakeHash{
   $$make{".DEFAULT"}{".SUFFIXES"}=[];
   $$make{"compressed.done"}={
     CMD=>[
-      "gzip -v $all_targets"
+      "gzip -v $all_targets",
+      '@echo "Done compressing. Note that this removes uncompressed targets."',
     ],
     DEP=>[],
   };
+  if($$settings{compressed}){
+    push(@{ $$make{"all"}{DEP} }, "compressed.done");
+  }
+  else {
+    logmsg "--compressed not given; run `make compressed` to compress the output later.";
+  }
 
   # We will append SRA Run IDs to the zeroth element
   # for this command like so:
@@ -527,7 +534,7 @@ sub runMakefile{
 }
 
 sub usage{
-  "  $0: Reads a standard dataset spreadsheet and downloads its data
+  print "  $0: Reads a standard dataset spreadsheet and downloads its data
 
   Usage: $0 -o outdir spreadsheet.dataset.tsv
   PARAM        DEFAULT  DESCRIPTION
@@ -550,8 +557,9 @@ sub usage{
   --citation            Print the recommended citation for this script and exit
   --version             Print the version and exit
   --tempdir    ''       Choose a different temp directory than the system default
-  --help                Print the usage statement and die
-  "
+  --help                Print the usage statement and exit
+  ";
+  exit 0;
 }
 
 

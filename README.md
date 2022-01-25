@@ -75,6 +75,7 @@ To run, you need a dataset in tsv format.  Here is the usage statement:
     Usage: GenFSGopher.pl -o outdir spreadsheet.dataset.tsv
     PARAM        DEFAULT  DESCRIPTION
     --outdir     <req'd>  The output directory
+    --compressed          Compress files after finishing hashsum verification
     --format     tsv      The input format. Default: tsv. No other format
                           is accepted at this time.
     --layout     onedir   onedir   - Everything goes into one directory
