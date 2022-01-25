@@ -14,7 +14,7 @@ use File::Temp qw/tempdir tempfile/;
 use File::Spec;
 use File::Copy qw/cp/;
 
-my $VERSION="0.6.1";
+my $VERSION="0.6.2";
 
 my $scriptInvocation="$0 ".join(" ",@ARGV);
 my $scriptsDir=dirname(File::Spec->rel2abs($0));
