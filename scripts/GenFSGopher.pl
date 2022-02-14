@@ -28,7 +28,7 @@ sub main{
   GetOptions($settings,qw(tempdir=s help outdir=s compressed|compression format=s shuffled! layout=s numcpus=i run! version citation));
   usage() if($$settings{help});
   $$settings{format}||="tsv"; # by default, input format is tsv
-  $$settings{seqIdTemplate}||='@$ac_$sn[_$rn]/$ri';
+  $$settings{seqIdTemplate}||='@$ac_$sn/$ri';
   $$settings{layout}||="onedir";
   $$settings{layout}=lc($$settings{layout});
   $$settings{numcpus}||=1;
