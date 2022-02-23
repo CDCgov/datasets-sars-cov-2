@@ -467,7 +467,10 @@ sub tsvToMakeHash{
 
   # Last of the make target(s)
   if(!$$settings{'calculate-hashsums'}){
-    push(@{ $$make{"sha256sum.log"}{CMD} }, "sha256sum -c $all_targets");
+    push(@{ $$make{"sha256sum.log"}{CMD} }, 
+      "sha256sum -c $all_targets > $make_target",
+      "cat $make_target",
+    );
   }
 
   return $make;
