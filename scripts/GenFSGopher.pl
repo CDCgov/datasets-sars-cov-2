@@ -251,7 +251,7 @@ sub tsvToMakeHash{
           my $filename3="$dumpdir/$F{strain}.shuffled.fastq";
           $$make{$filename3}={
             CMD=>[
-              "shuffle_reads.pl $filename1 $filename2 | gzip -c > $make_target",
+              "run_assembly_shuffleReads.pl $filename1 $filename2 | gzip -c > $make_target",
               #"rm -v $make_deps",
             ],
             DEP=>[
