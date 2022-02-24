@@ -107,8 +107,6 @@ If this project has helped you, please cite both this website and the original p
 
 Timme, Ruth E., et al. "Benchmark datasets for phylogenomic pipeline validation, applications for foodborne pathogen surveillance." PeerJ 5 (2017): e3893.
 
-[![Build Status](https://travis-ci.org/globalmicrobialidentifier-WG3/datasets.svg?branch=master)](https://travis-ci.org/globalmicrobialidentifier-WG3/datasets)
-
 ---
 ## Notices and Disclaimers
 
