@@ -138,6 +138,8 @@ Anyone is encouraged to contribute to the repository by [forking](https://help.g
 
 All comments, messages, pull requests, and other submissions received through CDC including this GitHub page may be subject to applicable federal law, including but not limited to the Federal Records Act, and may be archived. Learn more at [http://www.cdc.gov/other/privacy.html](http://www.cdc.gov/other/privacy.html).
 
+More specific instructions can be found at [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ### Records
 
 This repository is not a source of government records, but is a copy to increase collaboration and collaborative potential. All government records will be published through the [CDC web site](http://www.cdc.gov).
