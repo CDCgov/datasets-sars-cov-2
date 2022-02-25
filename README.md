@@ -44,16 +44,16 @@ docker pull staphb/datasets-sars-cov-2:latest
 
 # broken into 2 lines for readability
 docker run --rm -v $PWD:/data -u $(id -u):$(id -g) staphb/datasets-sars-cov-2:latest /bin/bash -c \
-'export NCBI_API_KEY="<your-NCBI-API-key-here>"; GenFSGopher.pl --numcpus 8 --compressed --outdir /data/vocvoi-dataset /home/user/datasets-sars-cov-2/datasets/sars-cov-2-voivoc.tsv''
+'export NCBI_API_KEY="<your-NCBI-API-key-here>"; GenFSGopher.pl --numcpus 8 --compressed --outdir /data/vocvoi-dataset /home/user/datasets-sars-cov-2/datasets/sars-cov-2-voivoc.tsv'
 ```
 
 ### Singularity
 The StaPH-B docker image can be converted to singularity image format and utilitzed in a similar manner.
 ```bash
-singularity build staphb.datasets-sars-cov-3.sif docker://staphb/datasets-sars-cov-2:latest
+singularity build staphb.datasets-sars-cov-2.sif docker://staphb/datasets-sars-cov-2:latest
 
 # broken into 3 lines for readabilty
-singularity exec -B $PWD:/data --no-home staphb.datasets-sars-cov-3.sif /bin/bash -c \
+singularity exec -B $PWD:/data --no-home staphb.datasets-sars-cov-2.sif /bin/bash -c \
 "export HOME=/home/user; export NCBI_API_KEY="<your-NCBI-API-key-here>"; \
 GenFSGopher.pl --numcpus 8 --compressed --outdir /data/vocvoi-dataset /home/user/datasets-sars-cov-2/datasets/sars-cov-2-voivoc.tsv"
 ```
