@@ -7,14 +7,14 @@ Benchmark datasets for WGS analysis of SARS-CoV-2.
 Technical Outreach and Assistance for States Team (TOAST) developed benchmark datasets for SARS-CoV-2 sequencing which are designed to help users at varying stages of building sequencing capacity. It consists of six datasets summarized in the table below, each chosen to represent a different use case.
 
 ## Summary Table
-| Dataset  | Name | Description | Intended Use |
-| ------------- | ------------- | ------------- | ------------- | 
-| 1 | Boston Outbreak   | A cohort of 63 samples from a real outbreak with three introductions, Illumina platform, metagenomic approach  | To understand the features of virus transmission during real outbreak setting, metagenomic sequencing   |
-| 2 | CoronaHiT rapid   | A cohort of 39 samples prepared by different wet-lab approaches and sequenced at two platforms (Illumina vs MinIon) with MinIon running for 18 hrs, amplicon-based approach  | To verify that a bioinformatics pipeline finds virtually no differences between platforms of the same genome, outbreak setting  |
-| 3 | CoronaHiT routine | A cohort of 69 samples prepared by different wet-lab approaches and sequenced at two platforms (Illumina vs MinIon) with MinIon running for 30 hrs, amplicon-based approach  | To verify that a bioinformatics pipeline finds virtually no differences between platforms of the same genome, routinue surveillance  |
-| 4 | VOI/VOC lineages  | A cohort of 16 samples from 10 representative CDC defined VOI/VOC lineages as of 05/30/2021, Illumina platform, amplicon-based approach  | To benchmark lineage-calling bioinformatics pipeline especially for VOI/VOCs, bioinformatics pipeline validation  |
-| 5 | Non-VOI/VOC lineages | A cohort of 39 samples from representative non VOI/VOC lineages as of 05/30/2021, Illumina platform, amplicon-based approach | To benchmark lineage-calling pipeline nonspecific to VOI/VOCs, bioinformatics pipeline validation  |
-| 6 | Failed QC | A cohort of 24 samples failed basic QC metrics, covering 8 possible failure scenarios, Illumina platform, amplicon-based approach  | To serve as controls to test bioinformatics quality control cutoffs |
+| Dataset  | Name | Description | Intended Use |tsv name | Primer Set|
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| 1 | Boston Outbreak   | A cohort of 63 samples from a real outbreak with three introductions, Illumina platform, metagenomic approach  | To understand the features of virus transmission during real outbreak setting, metagenomic sequencing   | sars-cov-2-SNF-A.tsv | NA |
+| 2 | CoronaHiT rapid   | A cohort of 39 samples prepared by different wet-lab approaches and sequenced at two platforms (Illumina vs MinIon) with MinIon running for 18 hrs, amplicon-based approach  | To verify that a bioinformatics pipeline finds virtually no differences between platforms of the same genome, outbreak setting  |sars-cov-2-coronahit-rapid.tsv | ARTIC_V3|
+| 3 | CoronaHiT routine | A cohort of 69 samples prepared by different wet-lab approaches and sequenced at two platforms (Illumina vs MinIon) with MinIon running for 30 hrs, amplicon-based approach  | To verify that a bioinformatics pipeline finds virtually no differences between platforms of the same genome, routinue surveillance  |sars-cov-2-coronahit-routine.tsv | ARTIC_V3|
+| 4 | VOI/VOC lineages  | A cohort of 16 samples from 10 representative CDC defined VOI/VOC lineages as of 06/15/2021, Illumina platform, amplicon-based approach  | To benchmark lineage-calling bioinformatics pipeline especially for VOI/VOCs, bioinformatics pipeline validation  |sars-cov-2-voivoc.tsv | ARTIC_V3 |
+| 5 | Non-VOI/VOC lineages | A cohort of 39 samples from representative non VOI/VOC lineages as of 05/30/2021, Illumina platform, amplicon-based approach | To benchmark lineage-calling pipeline nonspecific to VOI/VOCs, bioinformatics pipeline validation  |sars-cov-2-nonvoivoc.tsv | ARTIC_V3: 34,  ARTIC_V1: 2, RandomPrimer-SSIV_NexteraXT: 2,  NA: 1|
+| 6 | Failed QC | A cohort of 24 samples failed basic QC metrics, covering 8 possible failure scenarios, Illumina platform, amplicon-based approach  | To serve as controls to test bioinformatics quality control cutoffs |sars-cov-2-failedQC.tsv | Swift|
 
 ## Installation & Usage
 
