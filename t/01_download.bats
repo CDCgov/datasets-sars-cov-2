@@ -53,13 +53,13 @@ function note(){
     cat $samplesfile | sed 's/^/# /' >&3
     note " "
     name=$(basename $DATASET)
-    run GenFSGopher.pl -o $BATS_SUITE_TMPDIR/$name.out --compressed --numcpus $NUMCPUS $DATASET
-    #mkdir $BATS_SUITE_TMPDIR/$name.out;echo "foo" > $BATS_SUITE_TMPDIR/$name.out/bar.txt; run false
+    run GenFSGopher.pl -o $BATS_SUITE_TMPDIR/$name.out --numcpus $NUMCPUS $DATASET
     exit_code="$status"
     note "$output"
     note "Independently running sha256sum outside of GenFSGopher.pl"
     find $BATS_SUITE_TMPDIR -type f -exec sha256sum {} \; | sed 's/^/# /' >&3
-    find $BATS_SUITE_TMPDIR -type f -name '*.gz' | xargs -n 1 bash -c 'echo -ne "$0\t"; gzip -cd $0 | sha256sum' | sed 's/^/# /' >&3 || true
+    find $BATS_SUITE_TMPDIR -name '*.fastq' -or -name '*.gz' | \
+      xargs -n 1 bash -c 'echo -ne "$0\t"; cat $0 | sha256sum' | sed 's/^/# /' >&3 || true
     if [ "$exit_code" -gt 0 ]; then
       note "ERROR on GenFSGopher! exit code $exit_code"
       # invoke an exit code > 1 with 'false'
