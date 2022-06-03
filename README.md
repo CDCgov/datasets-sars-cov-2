@@ -24,7 +24,7 @@ Technical Outreach and Assistance for States Team (TOAST) developed benchmark da
 Some methods of installation are maintained by the community.
 Although we do not have direct control over them, we would like to list them for convenience.
 
-[INSTALL.md]
+Visit [INSTALL.md](INSTALL.md) for these methods.
 
 ### From Source Code
 

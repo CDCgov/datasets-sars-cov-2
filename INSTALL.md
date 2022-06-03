@@ -1,7 +1,7 @@
 # Installation from other sources
 
 The community generously maintains the following methods of installation.
-For installing from source, please see the relevant section in [README.md].
+For installing from source, please see the relevant section in [README.md](README.md).
 
 An NCBI API key is required to use this tool. [See here for information on how to obtain your own NCBI API key](https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/)
 
