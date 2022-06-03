@@ -16,6 +16,7 @@ Technical Outreach and Assistance for States Team (TOAST) developed benchmark da
 | 5 | Non-VOI/VOC lineages | A cohort of 39 samples from representative non VOI/VOC lineages as of 05/30/2021, Illumina platform, amplicon-based approach | To benchmark lineage-calling pipeline nonspecific to VOI/VOCs, bioinformatics pipeline validation  |sars-cov-2-nonvoivoc.tsv | ARTIC_V3: 34,  ARTIC_V1: 2, RandomPrimer-SSIV_NexteraXT: 2,  NA: 1|This study
 | 6 | Failed QC | A cohort of 24 samples failed basic QC metrics, covering 8 possible failure scenarios, Illumina platform, amplicon-based approach  | To serve as controls to test bioinformatics quality control cutoffs |sars-cov-2-failedQC.tsv | ARTIC_V3: 5, CDC in house multiplex PCR primers ([Paden et al.](https://wwwnc.cdc.gov/eid/article/26/10/20-1800_article)): 19|This study
 
+
 ## Installation & Usage
 
 An NCBI API key is required to use this tool. [See here for information on how to obtain your own NCBI API key](https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities/)
