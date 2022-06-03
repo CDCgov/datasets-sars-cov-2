@@ -1,28 +1,33 @@
-Outbreak	-
-Organism	SARS-CoV-2
-source	TOAST
-tree	-
-dataType	TOAST_failed_sequencing_runs
-pmid	-
+﻿Outbreak	-													
+Organism	SARS-CoV-2													
+source	TOAST													
+tree	-													
+dataType	TOAST_failed_sequencing_runs													
+pmid	-													
 
-Lineage_v3.1.3	SRArun_acc	benchmark_dataset	biosample_acc	dataSetName	genBankAssembly	nucleotide	outbreak	sha256sumAssembly	sha256sumRead1	sha256sumRead2	sha256sumnucleotide	strain	suggestedReference
--	NA	-	-	A	NC_045512.2	NA	SNF	-	-	-	-	Wuhan-1	TRUE	
--	SRR16298175	"Failed sample, high host contamination (62%)"	SAMN22226848	-	-	-	-	-	5b991ba80741225865c39ea9f4e612f080d3b169e48bebb4ba8d15373607c46d	7b137835f2e69315c176991e8285b13772288cdb51ebdbacae26e07af2533ec3	-	benchmark_bad1	FALSE	
--	SRR16298157	"Failed sample, low phred score leading to insufficient paired reads"	SAMN22226857	-	-	-	-	-	aedf9814284ca1825a24c713d567e770d0922bb596e2e06e3f6be1de45ead1af	dfad0c6c5359d17ef1960ab19d16b61e283248bb022b6b458516370261246a0b	-	benchmark_bad10	FALSE	
--	SRR16298173	"Failed sample, ambigous sites (Ns) >3000"	SAMN22226858	-	-	-	-	-	5670778fc9496873ea42f1f967e737e9ef752ef04cdef988fbbe8b80b204322b	50b41f81e6b38ffe8cd793ace6c609b0c6e148a283bc5f2d969683d3eebe1269	-	benchmark_bad11	FALSE	
--	SRR16298172	"Failed sample, low coverage"	SAMN22226859	-	-	-	-	-	4029371a740acbafc6d46139d32653fd8590f280b1043db130547330764a6b90	11c302ef159af31fe57719eb7d667646b4d73b0a65e3ea10c5168b26702ad466	-	benchmark_bad12	FALSE	
--	SRR16298171	"Failed sample, VADR alert >1"	SAMN22226860	-	-	-	-	-	f41b897f0aa143d2660d8051459cecef558ad08046c62a58bb6e578b2db0aba5	692c1a641c526d18c8e8550e4d720a0cefe694c5970ef9e87d72d8f13f41a70d	-	benchmark_bad13	FALSE	
--	SRR16298170	"Failed positive control, ambigous sites (Ns) > 3000, amplicon dropout"	SAMN22226861	-	-	-	-	-	8977e2d17be939e72c83bf71d174fc91872d66ef56f0a6b14d398c3a6c12529f	b364602964f8fa11c3eb49fd60ac53da8e48a7320b1dd706e653421af022bb6e	-	benchmark_bad14	FALSE	
--	SRR16298169	"Failed positive control, ambigous sites (Ns) > 3000"	SAMN22226862	-	-	-	-	-	6c696ca0cfec1e0e0350fa4d625b053eeee82816285d0b374895f8367024dd0b	6db9ce3b8bafbced15648b6fcb870a6c50d7c62e791f08921f025281ef9b67db	-	benchmark_bad15	FALSE	
--	SRR16298168	"Failed positive control, long stretch of Ns > 100"	SAMN22226863	-	-	-	-	-	284fe0e3e81e66e19e4a3e9745f37458a68eb60f9194bcdba9c3f91cdec7688e	e56044e738f671aeef3053b36b97cc84b7ace54c5f2ee16b5f28be6301735446	-	benchmark_bad16	FALSE	
--	SRR16298167	"Failed negative control (non-template control), contamination"	SAMN22226864	-	-	-	-	-	f5a0d1bead727c4e6bc6ddcea0974e522fa106c05782000feb379d900501a12e	9591fec72a24d52c8802cb0b5edc64a389623beee38dfc277a2fc039f9c8932d	-	benchmark_bad17	FALSE	
--	SRR16298166	"Failed negative control (non-template control), contamination"	SAMN22226865	-	-	-	-	-	1c215bede3731c05dc1cb254e5f923fd0fc5d5d2b02a1611bba03f8ad936e764	a7f58ab573a6720302124583f0c2e1a31c9bf7b0db115671666a5b2407fefece	-	benchmark_bad18	FALSE	
--	SRR16298165	"Failed Negative control (water), contamination"	SAMN22226866	-	-	-	-	-	824db781469557e81b44645dcb852ae3d57f67a30b271d20c475e60d17e820ba	a84437ea230f6fa05ecf01e02335034f5e73b55ffcd0652d23b13dfe60aeee96	-	benchmark_bad19	FALSE	
--	SRR16298174	"Failed sample, low coverage, high host contamination (87%)"	SAMN22226849	-	-	-	-	-	96065b8e3ce5d80d0b9538062749b060618d8188ddf2036be012df2408fa94e1	d951e3ff1bb1d3de6575e7fe2c754d7fd679443e866b48fd73fce41e9dfc5370	-	benchmark_bad2	FALSE	
--	SRR16298164	"Failed sample, high host contamination (96%)"	SAMN22226850	-	-	-	-	-	558c805378681acdaf9f3674823cc2f8630bf0cb8ef0de7224416248edca960d	66234a8f09b335ad5e39a2fa8229523b9fa103917a72cbc29e560ef5f367d9a6	-	benchmark_bad3	FALSE	
--	SRR16298163	"Failed sample, low coverage"	SAMN22226851	-	-	-	-	-	01fb1100ce09e0d8753e4fec48d2632011788700009bbfb2909a21a81b4ed63b	56eae21ee885f4b6a1c5ea7e9d5010481c09de393ff2703d94160a436a121548	-	benchmark_bad4	FALSE	
--	SRR16298162	"Failed sample, low coverage"	SAMN22226852	-	-	-	-	-	9b0d6d74b1b3fe97e68764c497f0edca18dfc52b9ed5bc035ff75c8ba539cdd5	9ecc09288dc15ab7fb14cfdb15950a761e1571cb3a0da554ccd25317810e472d	-	benchmark_bad5	FALSE	
--	SRR16298161	"Failed sample, low coverage breadth"	SAMN22226853	-	-	-	-	-	2e9c1e5a3e5dc51e606f723f88861d0b60a3157308b7df2266c61d0fee2bf968	c8ae307bb97c754a766e673b31d0d9b0ccc900e79193bb7d1ad150d2e8483325	-	benchmark_bad6	FALSE	
--	SRR16298160	"Failed sample, ambigous sites (Ns) >3000"	SAMN22226854	-	-	-	-	-	d946dd43be07deccaec1e0ef7a38a1ebb5a0510003850dbd80ed09c68fdb20c7	17faa7cb930a3feb62dc280c329d6a3466218c898711ba97ab3e55c9fd426170	-	benchmark_bad7	FALSE	
--	SRR16298159	"Failed sample, high host contamination (69%)"	SAMN22226855	-	-	-	-	-	3c3d5756306707ab7b07cd1119424e239e421eaf6f78a0e300649de6b60af86d	9f1d0a3b6171fd929a46544583b2a27dc65d4a638721f73d76dfb74414cbd2b7	-	benchmark_bad8	FALSE	
--	SRR16298158	"Failed sample, high host contamination (50%)"	SAMN22226856	-	-	-	-	-	108be91d085d78b7dde78f5f5c15ff51abb5a4e3b8202066265ac2cbff466ebf	957eb53bd86d7b2180d210fa0abdb718c6486f31ddf8467accee1de85123c1a3	-	benchmark_bad9	FALSE	
+Lineage_v3.1.3	SRArun_acc	benchmark_dataset	biosample_acc	dataSetName	genBankAssembly	nucleotide	outbreak	primer_strategy	sha256sumAssembly	sha256sumRead1	sha256sumRead2	sha256sumnucleotide	strain	suggestedReference
+-	NA	-	-	A	NC_045512.2	NA	SNF	-	-	-	-	-	Wuhan-1	TRUE
+-	SRR16298175	Failed sample, high host contamination (62%)	SAMN22226848	-	-	-	-	CDC in house multiplex PCR primers	-	5b991ba80741225865c39ea9f4e612f080d3b169e48bebb4ba8d15373607c46d	7b137835f2e69315c176991e8285b13772288cdb51ebdbacae26e07af2533ec3	-	benchmark_bad1	FALSE
+-	SRR16298157	Failed sample, low phred score leading to insufficient paired reads	SAMN22226857	-	-	-	-	CDC in house multiplex PCR primers	-	aedf9814284ca1825a24c713d567e770d0922bb596e2e06e3f6be1de45ead1af	dfad0c6c5359d17ef1960ab19d16b61e283248bb022b6b458516370261246a0b	-	benchmark_bad10	FALSE
+-	SRR16298173	Failed sample, ambigous sites (Ns) >3000	SAMN22226858	-	-	-	-	CDC in house multiplex PCR primers	-	5670778fc9496873ea42f1f967e737e9ef752ef04cdef988fbbe8b80b204322b	50b41f81e6b38ffe8cd793ace6c609b0c6e148a283bc5f2d969683d3eebe1269	-	benchmark_bad11	FALSE
+-	SRR16298172	Failed sample, low coverage	SAMN22226859	-	-	-	-	CDC in house multiplex PCR primers	-	4029371a740acbafc6d46139d32653fd8590f280b1043db130547330764a6b90	11c302ef159af31fe57719eb7d667646b4d73b0a65e3ea10c5168b26702ad466	-	benchmark_bad12	FALSE
+-	SRR16298171	Failed sample, VADR alert >1	SAMN22226860	-	-	-	-	CDC in house multiplex PCR primers	-	f41b897f0aa143d2660d8051459cecef558ad08046c62a58bb6e578b2db0aba5	692c1a641c526d18c8e8550e4d720a0cefe694c5970ef9e87d72d8f13f41a70d	-	benchmark_bad13	FALSE
+-	SRR16298170	Failed positive control, ambigous sites (Ns) > 3000, amplicon dropout	SAMN22226861	-	-	-	-	CDC in house multiplex PCR primers	-	8977e2d17be939e72c83bf71d174fc91872d66ef56f0a6b14d398c3a6c12529f	b364602964f8fa11c3eb49fd60ac53da8e48a7320b1dd706e653421af022bb6e	-	benchmark_bad14	FALSE
+-	SRR16298169	Failed positive control, ambigous sites (Ns) > 3000	SAMN22226862	-	-	-	-	CDC in house multiplex PCR primers	-	6c696ca0cfec1e0e0350fa4d625b053eeee82816285d0b374895f8367024dd0b	6db9ce3b8bafbced15648b6fcb870a6c50d7c62e791f08921f025281ef9b67db	-	benchmark_bad15	FALSE
+-	SRR16298168	Failed positive control, long stretch of Ns > 100	SAMN22226863	-	-	-	-	CDC in house multiplex PCR primers	-	284fe0e3e81e66e19e4a3e9745f37458a68eb60f9194bcdba9c3f91cdec7688e	e56044e738f671aeef3053b36b97cc84b7ace54c5f2ee16b5f28be6301735446	-	benchmark_bad16	FALSE
+-	SRR16298167	Failed negative control (non-template control), contamination	SAMN22226864	-	-	-	-	CDC in house multiplex PCR primers	-	f5a0d1bead727c4e6bc6ddcea0974e522fa106c05782000feb379d900501a12e	9591fec72a24d52c8802cb0b5edc64a389623beee38dfc277a2fc039f9c8932d	-	benchmark_bad17	FALSE
+-	SRR16298166	Failed negative control (non-template control), contamination	SAMN22226865	-	-	-	-	CDC in house multiplex PCR primers	-	1c215bede3731c05dc1cb254e5f923fd0fc5d5d2b02a1611bba03f8ad936e764	a7f58ab573a6720302124583f0c2e1a31c9bf7b0db115671666a5b2407fefece	-	benchmark_bad18	FALSE
+-	SRR16298165	Failed Negative control (water), contamination	SAMN22226866	-	-	-	-	CDC in house multiplex PCR primers	-	824db781469557e81b44645dcb852ae3d57f67a30b271d20c475e60d17e820ba	a84437ea230f6fa05ecf01e02335034f5e73b55ffcd0652d23b13dfe60aeee96	-	benchmark_bad19	FALSE
+-	SRR16298174	Failed sample, low coverage, high host contamination (87%)	SAMN22226849	-	-	-	-	CDC in house multiplex PCR primers	-	96065b8e3ce5d80d0b9538062749b060618d8188ddf2036be012df2408fa94e1	d951e3ff1bb1d3de6575e7fe2c754d7fd679443e866b48fd73fce41e9dfc5370	-	benchmark_bad2	FALSE
+-	SRR16298164	Failed sample, high host contamination (96%)	SAMN22226850	-	-	-	-	CDC in house multiplex PCR primers	-	558c805378681acdaf9f3674823cc2f8630bf0cb8ef0de7224416248edca960d	66234a8f09b335ad5e39a2fa8229523b9fa103917a72cbc29e560ef5f367d9a6	-	benchmark_bad3	FALSE
+-	SRR16298163	Failed sample, low coverage	SAMN22226851	-	-	-	-	CDC in house multiplex PCR primers	-	01fb1100ce09e0d8753e4fec48d2632011788700009bbfb2909a21a81b4ed63b	56eae21ee885f4b6a1c5ea7e9d5010481c09de393ff2703d94160a436a121548	-	benchmark_bad4	FALSE
+-	SRR16298162	Failed sample, low coverage	SAMN22226852	-	-	-	-	CDC in house multiplex PCR primers	-	9b0d6d74b1b3fe97e68764c497f0edca18dfc52b9ed5bc035ff75c8ba539cdd5	9ecc09288dc15ab7fb14cfdb15950a761e1571cb3a0da554ccd25317810e472d	-	benchmark_bad5	FALSE
+-	SRR16298161	Failed sample, low coverage breadth	SAMN22226853	-	-	-	-	CDC in house multiplex PCR primers	-	2e9c1e5a3e5dc51e606f723f88861d0b60a3157308b7df2266c61d0fee2bf968	c8ae307bb97c754a766e673b31d0d9b0ccc900e79193bb7d1ad150d2e8483325	-	benchmark_bad6	FALSE
+-	SRR16298160	Failed sample, ambigous sites (Ns) >3000	SAMN22226854	-	-	-	-	CDC in house multiplex PCR primers	-	d946dd43be07deccaec1e0ef7a38a1ebb5a0510003850dbd80ed09c68fdb20c7	17faa7cb930a3feb62dc280c329d6a3466218c898711ba97ab3e55c9fd426170	-	benchmark_bad7	FALSE
+-	SRR16298159	Failed sample, high host contamination (69%)	SAMN22226855	-	-	-	-	CDC in house multiplex PCR primers	-	3c3d5756306707ab7b07cd1119424e239e421eaf6f78a0e300649de6b60af86d	9f1d0a3b6171fd929a46544583b2a27dc65d4a638721f73d76dfb74414cbd2b7	-	benchmark_bad8	FALSE
+-	SRR16298158	Failed sample, high host contamination (50%)	SAMN22226856	-	-	-	-	CDC in house multiplex PCR primers	-	108be91d085d78b7dde78f5f5c15ff51abb5a4e3b8202066265ac2cbff466ebf	957eb53bd86d7b2180d210fa0abdb718c6486f31ddf8467accee1de85123c1a3	-	benchmark_bad9	FALSE
+-	SRR12899254	Failed sample, frameshift leading to VADR failure	SAMN16554485	-	-	-	-	ARTIC_V3	-	1c65b5e3ff1554ebe59082c704edb37e4b3edd30c317689f219bca39a047e967	2c9fc458c52562718813c963183f5ca04b9f465516cf74b7263f860e1de49c32	-	benchmark_bad20	FALSE
+-	SRR12973280	Failed sample, frameshift leading to VADR failure	SAMN16636212	-	-	-	-	ARTIC_V3	-	03a15867a68bdef8c79e0485d526b6a42403f994238a6b8decae617fbf13bcfc	81fed28ba82289d96d0150aead929788715c1671c79e02f5c9549f5b536af907	-	benchmark_bad21	FALSE
+-	SRR13490700	Failed sample, frameshift leading to VADR failure	SAMN17390073 	-	-	-	-	ARTIC_V3	-	c2d60082e57eaac079e54c112eb6ba7e9a8d027cec645924fc692a727cd02d75	cca517a224dbb8bc76b1ddb204a7b19896ecbdd8216964c0e99fd9a0ab8fa737	-	benchmark_bad22	FALSE
+-	SRR13499308	Failed sample, frameshift leading to VADR failure	SAMN17486862	-	-	-	-	ARTIC_V3	-	9341145db7a9bfc0ef1999f5e3582f8505835931ec31758cc2efdcb7f739abfa	f61a1f4d30c094ed48d3401977ce68bcd7a0e607f85dc3ff058178a583b66575	-	benchmark_bad23	FALSE
+-	SRR13645688	Failed sample, frameshift leading to VADR failure	SAMN17822806	-	-	-	-	ARTIC_V3	-	f6c0d91629a802d44ed428edea5cf4215ba0455ff461b68b96796065611ccb85	ef4b7099b513949b2ff8f92ad3ead27930849ff5e2b298135bdc9b77e601b371	-	benchmark_bad24	FALSE
