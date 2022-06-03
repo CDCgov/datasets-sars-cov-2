@@ -120,10 +120,16 @@ sub tsvToMakeHash{
       "sha256sum.log",
     ],
   };
+  # Make a placeholder for tree.dnd which will get replaced later
+  # if a tree is available
+  $$make{"tree.dnd"} = {CMD=>[], DEP=>[]};
+
+  # Some control targets for Makefile
   $$make{".PHONY"}{DEP}=['all'];
   $$make{".DEFAULT"}{DEP}=['all'];
   $$make{".DEFAULT"}{".DELETE_ON_ERROR"}=[];
   $$make{".DEFAULT"}{".SUFFIXES"}=[];
+
   $$make{"compressed.done"}={
     CMD=>[
       "gzip -v $all_targets",
@@ -496,7 +502,7 @@ sub writeMakefile{
   print MAKEFILE "MAKEFLAGS += --no-builtin-variables\n";
   print MAKEFILE "export PATH := $scriptsDir:\$(PATH)\n";
   print MAKEFILE "\n";
-  print MAKEFILE "DELETE_ON_ERROR:\n";
+  print MAKEFILE ".DELETE_ON_ERROR:\n";
   print MAKEFILE "\n";
   for my $target(@target){
     my $properties=$$m{$target};
