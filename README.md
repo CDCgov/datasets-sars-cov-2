@@ -95,18 +95,9 @@ In addition to the installation above, please install the following.
 
 #### Installing edirect
 
-  Modified instructions from https://www.ncbi.nlm.nih.gov/books/NBK179288/
+Modified instructions from https://www.ncbi.nlm.nih.gov/books/NBK179288/
 
-    mkdir -p ~/bin
-    cd ~/bin
-    perl -MNet::FTP -e \
-      '$ftp = new Net::FTP("ftp.ncbi.nlm.nih.gov", Passive => 1);
-       $ftp->login; $ftp->binary;
-       $ftp->get("/entrez/entrezdirect/edirect.tar.gz");'
-    gunzip -c edirect.tar.gz | tar xf -
-    rm edirect.tar.gz
-    export PATH=$PATH:$HOME/bin/edirect
-    ./edirect/setup.sh
+    sh -c "$(curl -fsSL ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/install-edirect.sh)"
 
 **NOTE**: edirect needs an NCBI API key.
 Instructions can be found at https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities
