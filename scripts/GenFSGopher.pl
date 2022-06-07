@@ -25,7 +25,7 @@ exit main();
 
 sub main{
   my $settings={run=>1};
-  GetOptions($settings,qw(tempdir=s help outdir=s compressed|compression format=s shuffled! layout=s numcpus=i run! version citation));
+  GetOptions($settings,qw(tempdir=s help outdir=s compressed|compression format=s shuffled! layout=s numcpus=i run! version citation)) or die $!;
   usage() if($$settings{help});
   $$settings{format}||="tsv"; # by default, input format is tsv
   $$settings{seqIdTemplate}||='@$ac_$sn/$ri';
@@ -146,6 +146,12 @@ sub tsvToMakeHash{
     "touch $make_target",
   ];
 
+  # Make a target for cleaning but the target will not be
+  # made so that it can be run any number of times.
+  $$make{"clean"}{CMD} = [
+    "rm -rvf",
+  ];
+
   my $fileToName={};            # mapping filename to base name
   my $have_reached_biosample=0; # marked true when it starts reading entries
   my @header=();                # defined when we get to the biosample_acc header row
@@ -243,9 +249,10 @@ sub tsvToMakeHash{
         },
         push(@{ $$make{"compressed.done"}{DEP} }, $filename1, $filename2);
 
-        #push(@{ $$make{"all"}{DEP} }, "$filename1.sha256", "$filename2.sha256");
-
+        # Add onto the `prefetch` command this accession
         $$make{"prefetch.done"}{CMD}[0] .= " $F{srarun_acc}";
+        # Add onto the clean command for what to remove
+        $$make{"clean"}{CMD}[0] .= " $F{srarun_acc}";
 
         if($$settings{shuffled}){
           my $filename3="$dumpdir/$F{strain}.shuffled.fastq";
