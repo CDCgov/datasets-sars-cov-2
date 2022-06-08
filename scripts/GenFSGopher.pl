@@ -464,7 +464,10 @@ sub tsvToMakeHash{
           ],
         };
         if($value eq "" || $value eq "-"){
-          $$make{"tree.dnd"}{CMD}=["echo 'No tree was supplied'"];
+          $$make{"tree.dnd"}{CMD}=[
+            "echo 'No tree was supplied'",
+            "echo -n > $make_target",
+          ];
         }
       }
     }
