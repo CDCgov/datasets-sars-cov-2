@@ -122,7 +122,7 @@ sub tsvToMakeHash{
   };
   $$make{".PHONY"}{DEP}=['all'];
   $$make{".DEFAULT"}{DEP}=['all'];
-  $$make{".DEFAULT"}{".DELETE_ON_ERROR"}=[];
+  $$make{".DEFAULT"}{".DELETE_ON_ERROR"}={DEP=>[], CMD=>[]};
   $$make{".DEFAULT"}{".SUFFIXES"}=[];
   $$make{"compressed.done"}={
     CMD=>[
@@ -478,7 +478,8 @@ sub tsvToMakeHash{
   # Last of the make target(s)
   if(!$$settings{'calculate-hashsums'}){
     push(@{ $$make{"sha256sum.log"}{CMD} }, 
-      "sha256sum -c $all_targets > $make_target",
+      "sha256sum -c $all_targets > $make_target.bak",
+      "mv -v $make_target.bak $make_target",
       "cat $make_target",
     );
   }
@@ -506,7 +507,7 @@ sub writeMakefile{
   print MAKEFILE "MAKEFLAGS += --no-builtin-variables\n";
   print MAKEFILE "export PATH := $scriptsDir:\$(PATH)\n";
   print MAKEFILE "\n";
-  print MAKEFILE "DELETE_ON_ERROR:\n";
+  print MAKEFILE ".DELETE_ON_ERROR:\n";
   print MAKEFILE "\n";
   for my $target(@target){
     my $properties=$$m{$target};
