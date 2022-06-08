@@ -25,7 +25,7 @@ exit main();
 
 sub main{
   my $settings={run=>1};
-  GetOptions($settings,qw(tempdir=s help outdir=s compressed|compression format=s shuffled! layout=s numcpus=i run! version citation));
+  GetOptions($settings,qw(tempdir=s help outdir=s compressed|compression format=s shuffled! layout=s numcpus=i run! version citation)) or die $!;
   usage() if($$settings{help});
   $$settings{format}||="tsv"; # by default, input format is tsv
   $$settings{seqIdTemplate}||='@$ac_$sn/$ri';
@@ -127,7 +127,7 @@ sub tsvToMakeHash{
   # Some control targets for Makefile
   $$make{".PHONY"}{DEP}=['all'];
   $$make{".DEFAULT"}{DEP}=['all'];
-  $$make{".DEFAULT"}{".DELETE_ON_ERROR"}=[];
+  $$make{".DEFAULT"}{".DELETE_ON_ERROR"}={DEP=>[], CMD=>[]};
   $$make{".DEFAULT"}{".SUFFIXES"}=[];
 
   $$make{"compressed.done"}={
@@ -150,6 +150,12 @@ sub tsvToMakeHash{
   $$make{"prefetch.done"}{CMD} = [
     "prefetch",
     "touch $make_target",
+  ];
+
+  # Make a target for cleaning but the target will not be
+  # made so that it can be run any number of times.
+  $$make{"clean"}{CMD} = [
+    "rm -rvf",
   ];
 
   my $fileToName={};            # mapping filename to base name
@@ -249,9 +255,10 @@ sub tsvToMakeHash{
         },
         push(@{ $$make{"compressed.done"}{DEP} }, $filename1, $filename2);
 
-        #push(@{ $$make{"all"}{DEP} }, "$filename1.sha256", "$filename2.sha256");
-
+        # Add onto the `prefetch` command this accession
         $$make{"prefetch.done"}{CMD}[0] .= " $F{srarun_acc}";
+        # Add onto the clean command for what to remove
+        $$make{"clean"}{CMD}[0] .= " $F{srarun_acc}";
 
         if($$settings{shuffled}){
           my $filename3="$dumpdir/$F{strain}.shuffled.fastq";
@@ -463,7 +470,10 @@ sub tsvToMakeHash{
           ],
         };
         if($value eq "" || $value eq "-"){
-          $$make{"tree.dnd"}{CMD}=["echo 'No tree was supplied'"];
+          $$make{"tree.dnd"}{CMD}=[
+            "echo 'No tree was supplied'",
+            "echo -n > $make_target",
+          ];
         }
       }
     }
@@ -474,7 +484,8 @@ sub tsvToMakeHash{
   # Last of the make target(s)
   if(!$$settings{'calculate-hashsums'}){
     push(@{ $$make{"sha256sum.log"}{CMD} }, 
-      "sha256sum -c $all_targets > $make_target",
+      "sha256sum -c $all_targets > $make_target.bak",
+      "mv -v $make_target.bak $make_target",
       "cat $make_target",
     );
   }

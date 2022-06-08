@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-18.04
     name: ${{ matrix.DATASET }}
     strategy:
+      fail-fast: false
+      max-parallel: 3
       matrix:
         DATASET:
           - datasets/sars-cov-2-voivoc.tsv
