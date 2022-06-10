@@ -52,17 +52,19 @@ jobs:
           if [[ -z "$NCBI_API_KEY" ]]; then echo "NCBI_API_KEY not found in github secrets!"; fi;
           
           export DATASET=$(pwd -P)/${{ matrix.DATASET }}.${{ matrix.CHUNK }}.short
+          CHUNK=${{ matrix.CHUNK }}
+          NUM_PER_CHUNK=${{ matrix.NUM_PER_CHUNK }}
 
           # Get the header of the dataset
           grep -B 999 biosample_acc ${{ matrix.DATASET }} > $DATASET
           # Get the samples of the dataset (everything past the header)
           # and then get the number of lines dictated by CHUNK (e.g., 50, 100, 150,...)
           #   with sed -n Xp
-          #FIRST_LINE=${{ matrix.CHUNK }} - ${{ matrix.NUM_PER_CHUNK }} + 1
-          #LAST_LINE=${{ matrix.CHUNK }}
-          #grep -A 99999 biosample_acc ${{ matrix.DATASET }} | tail -n +2 | sed -n ${FIRST_LINE},${LAST_LINE}p >> $DATASET
+          FIRST_LINE=$(($CHUNK - $NUM_PER_CHUNK + 1))
+          LAST_LINE=${{ matrix.CHUNK }}
+          grep -A 99999 biosample_acc ${{ matrix.DATASET }} | tail -n +2 | sed -n ${FIRST_LINE},${LAST_LINE}p >> $DATASET
 
           # Run the TAP compliant unit test which reads env variable $DATASET
-          #echo "DATASET CHUNK $DATASET"
-          #bats t/*
+          echo "DATASET CHUNK $DATASET"
+          bats t/*
 
