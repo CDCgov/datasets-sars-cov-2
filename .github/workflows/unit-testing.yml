@@ -7,7 +7,7 @@ on: [push, create]
 jobs:
   build:
     runs-on: ubuntu-18.04
-    name: ${{ matrix.DATASET }} (chunk${{ matrix.CHUNK }} + ${{ matrix.NUM_PER_CHUNK }})
+    name: ${{ matrix.DATASET }} (chunk${{ matrix.CHUNK }}, chunk size ${{ matrix.NUM_PER_CHUNK }})
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -63,6 +63,6 @@ jobs:
           grep -A 99999 biosample_acc ${{ matrix.DATASET }} | tail -n +2 | sed -n ${FIRST_LINE},${LAST_LINE}p >> $DATASET
 
           # Run the TAP compliant unit test which reads env variable $DATASET
-          echo "DATASET CHUNK $DATASET"
-          bats t/*
+          #echo "DATASET CHUNK $DATASET"
+          #bats t/*
 
