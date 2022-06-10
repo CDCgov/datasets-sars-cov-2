@@ -10,7 +10,7 @@ jobs:
     name: ${{ matrix.DATASET }} (chunk${{ matrix.CHUNK }}, chunk size ${{ matrix.NUM_PER_CHUNK }})
     strategy:
       fail-fast: false
-      max-parallel: 20
+      max-parallel: 50
       matrix:
         DATASET:
           - datasets/sars-cov-2-voivoc.tsv
