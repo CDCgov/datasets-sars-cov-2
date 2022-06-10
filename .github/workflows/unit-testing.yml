@@ -7,7 +7,7 @@ on: [push, create]
 jobs:
   build:
     runs-on: ubuntu-18.04
-    name: ${{ matrix.DATASET }} (chunk${{ matrix.CHUNK }} - ${{ matrix.CHUNK + matrix.NUM_PER_CHUNK }})
+    name: ${{ matrix.DATASET }} (chunk${{ matrix.CHUNK }} + ${{ matrix.NUM_PER_CHUNK }})
     strategy:
       fail-fast: false
       max-parallel: 3
