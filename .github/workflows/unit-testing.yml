@@ -55,9 +55,6 @@ jobs:
           CHUNK=${{ matrix.CHUNK }}
           NUM_PER_CHUNK=${{ matrix.NUM_PER_CHUNK }}
 
-          echo GITHUB_RUN_NUMBER $GITHUB_RUN_NUMBER
-          exit 0
-
           # Get the header of the dataset
           grep -B 999 biosample_acc ${{ matrix.DATASET }} > $DATASET
           # Get the samples of the dataset (everything past the header)
