@@ -1,8 +1,8 @@
-tree	https://raw.githubusercontent.com/globalmicrobialidentifier-WG3/datasets/master/datasets/trees/sarscov2-SNF-A.dnd
+pmid	33303686
+dataType	Outbreak
 Organism	SARS-CoV-2
 source	Danny Park
-dataType	Outbreak
-pmid	33303686
+tree	https://raw.githubusercontent.com/globalmicrobialidentifier-WG3/datasets/master/datasets/trees/sarscov2-SNF-A.dnd
 Outbreak	SNF A
 
 SRArun_acc	biosample_acc	dataSetName	genBankAssembly	nucleotide	outbreak	sha256sumAssembly	sha256sumRead1	sha256sumRead2	sha256sumnucleotide	strain	suggestedReference
