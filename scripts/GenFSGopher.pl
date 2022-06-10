@@ -415,7 +415,8 @@ sub tsvToMakeHash{
         # The make command
         $$make{$filename}={
           CMD=>[
-            "esearch -db nucleotide -query '$F{nucleotide}' | efetch -format fasta > $make_target", 
+            "for i in `seq 1 3`; do esearch -db nucleotide -query '$F{nucleotide}' | efetch -format fasta > $make_target; if [ -s $make_target ]; then break; fi; sleep 1; done;",
+            #"esearch -db nucleotide -query '$F{nucleotide}' | efetch -format fasta > $make_target", 
           ],
           DEP=>[
             $dumpdir
