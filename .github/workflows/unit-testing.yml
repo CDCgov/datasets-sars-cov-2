@@ -21,7 +21,7 @@ jobs:
           - datasets/sars-cov-2-failedQC.tsv
         # TODO is there a $SGE_TASK_ID equivalent instead of listing each chunk???
         CHUNK: [25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400]
-        NUM_PER_CHUNK: "50"
+        NUM_PER_CHUNK: "25"
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
