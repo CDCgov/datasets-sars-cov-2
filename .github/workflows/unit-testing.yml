@@ -7,7 +7,7 @@ on: [push, create]
 jobs:
   build:
     runs-on: ubuntu-18.04
-    name: ${{ matrix.DATASET }}
+    name: ${{ matrix.DATASET }} (chunk${{ matrix.CHUNK }} - ${{ matrix.CHUNK + matrix.NUM_PER_CHUNK }})
     strategy:
       fail-fast: false
       max-parallel: 3
@@ -19,6 +19,8 @@ jobs:
           - datasets/sars-cov-2-coronahit-routine.tsv
           - datasets/sars-cov-2-SNF-A.tsv
           - datasets/sars-cov-2-failedQC.tsv
+        CHUNK: [50, 100, 150, 200, 250]
+        NUM_PER_CHUNK: 50
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -42,23 +44,23 @@ jobs:
       - name: unit testing - just env
         run:  |
           bats t/00_env.bats
-      - name: abbreviated unit testing with ${{ matrix.DATASET }}
-        if:   ${{ github.event_name != 'create' }}
+      - name: unit test chunk of ${{ matrix.DATASET }}
         run:  |
           export NCBI_API_KEY=${{ secrets.NCBI_API_KEY }}
           if [[ -z "$NCBI_API_KEY" ]]; then echo "NCBI_API_KEY not found in github secrets!"; fi;
-          # Get the header and just two samples for the abbreviated test
-          grep -B 999 -A 3 biosample_acc ${{ matrix.DATASET }} > ${{ matrix.DATASET }}.short
-          export DATASET=$(realpath ${{ matrix.DATASET }}).short
-          echo "Abbreviated dataset: $DATASET"
-          bats t/*
-      - name: full unit testing with ${{ matrix.DATASET }}
-        if:   ${{ github.event_name == 'create' }}
-        run:  |
-          export NCBI_API_KEY=${{ secrets.NCBI_API_KEY }}
-          if [[ -z "$NCBI_API_KEY" ]]; then echo "# NCBI_API_KEY not found in github secrets!"; fi;
-          echo "Full dataset: ${{ matrix.DATASET }}"
-          export DATASET=$(realpath ${{ matrix.DATASET }})
-          echo "DEBUG: allowing for error exit code in TAP"
+          
+          export DATASET=$(pwd -P)/${{ matrix.DATASET }}.${{ matrix.CHUNK }}.short
+
+          # Get the header of the dataset
+          grep -B 999 biosample_acc ${{ matrix.DATASET }} > $DATASET
+          # Get the samples of the dataset (everything past the header)
+          # and then get the number of lines dictated by CHUNK (e.g., 50, 100, 150,...)
+          #   with sed -n Xp
+          FIRST_LINE=${{ matrix.CHUNK }} - ${{ matrix.NUM_PER_CHUNK }} + 1
+          LAST_LINE=${{ matrix.CHUNK }}
+          grep -A 99999 biosample_acc ${{ matrix.DATASET }} | tail -n +2 | sed -n ${FIRST_LINE},${LAST_LINE}p >> $DATASET
+
+          # Run the TAP compliant unit test which reads env variable $DATASET
+          echo "DATASET CHUNK $DATASET"
           bats t/*
 
