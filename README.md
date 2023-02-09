@@ -39,13 +39,13 @@ After obtaining an NCBI API key, add it to your environment with
 
     export NCBI_API_KEY=unique_api_key_goes_here
 
-where `unique_api_key_goes_here` is a unique hexadecimal number with characters from 0-9 and a-f. 
-You should also set your email address in the 
+where `unique_api_key_goes_here` is a unique hexadecimal number with characters from 0-9 and a-f.
+You should also set your email address in the
 `EMAIL` environment variable as edirect tries to guess it, which is an error prone process.
 Add this variable to your environment with
 
     export EMAIL=my@email.address
- 
+
 using your own email address instead of `my@email.address`.
 
 #### Dependencies
@@ -111,9 +111,10 @@ Then view the [specification](SPECIFICATION.md).
 
 ## Citation
 
-If this project has helped you, please cite both this website and the original publication:
+If this project has helped you, please cite both this website and the publication:
 
-Timme, Ruth E., et al. "Benchmark datasets for phylogenomic pipeline validation, applications for foodborne pathogen surveillance." PeerJ 5 (2017): e3893.
+Xiaoli L, Hagey JV, et al. "Benchmark datasets for SARS-CoV-2 surveillance bioinformatics." [PeerJ 10 (2022): e13821.](https://peerj.com/articles/13821/)  
+DOI: [10.7717/peerj.13821](https://doi.org/10.7717/peerj.13821)
 
 ---
 ## Notices and Disclaimers
