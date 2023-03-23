@@ -4,6 +4,9 @@
 
 load "inc/environment"
 
+BATS_SUITE_TMPDIR=${BATS_SUITE_TMPDIR:="./tmp"}
+mkdir -pv $BATS_SUITE_TMPDIR
+
 function note(){
   echo "# $1" >&3
 }

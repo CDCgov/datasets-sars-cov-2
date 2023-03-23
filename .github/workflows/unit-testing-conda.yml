@@ -1,0 +1,120 @@
+name: unit-tests-with-conda
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-20.04' ]
+        perl: [ '5.36.0' ]
+        DATASET: 
+          - datasets/sars-cov-2-voivoc.tsv
+          - datasets/sars-cov-2-nonvoivoc.tsv
+          - datasets/sars-cov-2-coronahit-rapid.tsv
+          - datasets/sars-cov-2-coronahit-routine.tsv
+          - datasets/sars-cov-2-SNF-A.tsv
+          - datasets/sars-cov-2-failedQC.tsv
+        NUM_PER_CHUNK:
+          - 25
+        # CHUNK is a set of numbers in increments of NUM_PER_CHUNK which exceeds the number
+        # of samples in any given dataset.
+        CHUNK: [25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400]
+    defaults:
+      run:
+        shell: bash -el {0}
+    name: Chunk ${{ matrix.CHUNK }}, Dataset ${{ matrix.DATASET }}
+    steps:
+      - name: Get Date
+        id: get-date
+        run: |
+          today=$(/bin/date -u '+%Y%m%d')
+          echo $today
+          echo "today=$today" >> $GITHUB_OUTPUT
+      - name: set up conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+          use-mamba: true
+          miniforge-variant: Mambaforge
+          miniforge-version: latest
+          channel-priority: strict
+          channels: conda-forge,bioconda,defaults
+          mamba-version: "*"
+          auto-activate-base: true
+          activate-environment: "~/conda_pkgs_dir/my-env"
+          use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+      - name: conda info
+        run: |
+          conda info
+          echo
+          conda list
+          echo
+          conda config --show
+      - name: Cache Conda env
+        id: cache-conda
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/conda_pkgs_dir
+            ~/.conda
+            ~/.condarc
+            #/usr/share/miniconda
+          key: conda-${{ runner.os }}--${{ runner.arch }}--${{ steps.get-date.outputs.today }}-perl_v${{ matrix.perl }}--${{env.CACHE_NUMBER}}
+        env:
+          CACHE_NUMBER: 5
+      - name: conda installations
+        shell: bash -el {0}
+        if: steps.cache-conda.outputs.cache-hit != 'true'
+        run: | 
+          mamba install -y entrez-direct sra-tools bats-core
+      - name: check installation
+        shell: bash -el {0}
+        run: | 
+          perl -v
+          echo 
+          python -V
+          echo 
+          which perl
+          which python
+          echo
+          which bats
+      - name: checkout my repo
+        uses: actions/checkout@v2
+      - name: apt-get install
+        run:  |
+          sudo apt-get update
+          sudo apt-get -y install ca-certificates
+      - name: unit testing - just env
+        run:  |
+          bats t/00_env.bats
+      - name: unit test chunk of ${{ matrix.DATASET }}
+        run:  |
+          export NCBI_API_KEY=${{ secrets.NCBI_API_KEY }}
+          if [[ -z "$NCBI_API_KEY" ]]; then echo "NCBI_API_KEY not found in github secrets!"; fi;
+          
+          export DATASET=$(pwd -P)/${{ matrix.DATASET }}.${{ matrix.CHUNK }}.short
+          CHUNK=${{ matrix.CHUNK }}
+          NUM_PER_CHUNK=${{ matrix.NUM_PER_CHUNK }}
+
+          # Get the header of the dataset
+          grep -B 999 biosample_acc ${{ matrix.DATASET }} > $DATASET
+          # Get the samples of the dataset (everything past the header)
+          # and then get the number of lines dictated by CHUNK (e.g., 50, 100, 150,...)
+          #   with sed -n Xp
+          FIRST_LINE=$(($CHUNK - $NUM_PER_CHUNK + 1))
+          LAST_LINE=${{ matrix.CHUNK }}
+          grep -A 99999 biosample_acc ${{ matrix.DATASET }} | tail -n +2 | sed -n ${FIRST_LINE},${LAST_LINE}p >> $DATASET.body
+          cat $DATASET.body >> $DATASET
+
+          echo "DATASET CHUNK $DATASET"
+          # If we have zero samples, just exit with pass
+          NUM_SAMPLES=$(wc -l < $DATASET.body)
+          if [[ $NUM_SAMPLES -lt 1 ]]; then
+            echo "Number of samples is zero; exiting with pass"
+          else
+            # Run the TAP compliant unit test which reads env variable $DATASET
+            bats t/*
+          fi
+
