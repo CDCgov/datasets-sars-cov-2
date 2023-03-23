@@ -17,10 +17,10 @@ jobs:
           - datasets/sars-cov-2-SNF-A.tsv
           - datasets/sars-cov-2-failedQC.tsv
         NUM_PER_CHUNK:
-          - 10
+          - 25
         # CHUNK is a set of numbers in increments of NUM_PER_CHUNK which exceeds the number
         # of samples in any given dataset.
-        CHUNK: [10, 20, 30, 40, 50]
+        CHUNK: [25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400]
     defaults:
       run:
         shell: bash -el {0}
